@@ -11,13 +11,21 @@ export async function DB(){
     }
 }
 
-export async function GET (req: Request, res:NextResponse){
+export async function POST (req: Request, res:NextResponse){
     try {
         await DB();
-        const list = await prisma.message.findMany();
-        return NextResponse.json({ message: "Success", list}, {status: 201});
+        const no = await req.json();
+        const post_no =parseInt(no);
+        const post = await prisma.message.findFirst({
+            where:{
+                id: post_no
+            },
+            include:{
+                user:true
+            }
+        });
+        return NextResponse.json({ message: "Success", post}, {status: 201});
     } catch (err) {
-        console.log("エラー",err)
         return NextResponse.json({ message: "Error", err}, {status: 500});
     } finally {
         await prisma.$disconnect();

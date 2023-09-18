@@ -13,17 +13,9 @@ datasource db {
 model User {
   id           String    @id @unique
   username String
-  messages Message[]//追加
   auth_session Session[]
   key          Key[]
-}
-
-//追加
-model Message {
-  id      Int     @id @default(autoincrement())
-  content String
-  userId  String
-  user    User    @relation(fields: [userId], references: [id])
+  messages Message[]//追加
 }
 
 model Session {
@@ -44,3 +36,12 @@ model Key {
 
   @@index([user_id])
 }
+
+//追加
+model Message {
+  id      Int     @id @default(autoincrement())
+  userId  String
+  content String
+  user    User    @relation(fields: [userId], references: [id])
+}
+

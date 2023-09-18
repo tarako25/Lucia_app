@@ -47,7 +47,9 @@ export const POST = async (request: NextRequest) => {
 				providerUserId: username.toLowerCase(), // unique id when using "username" auth method
 				password // hashed by Lucia
 			},
-			attributes:{}
+			attributes:{
+				username,
+			}
 		});
 		const session = await auth.createSession({
 			userId: user.userId,

@@ -5,13 +5,13 @@ import { cookies } from "next/headers";
 import { prisma } from "@lucia-auth/adapter-prisma";
 import { PrismaClient } from "@prisma/client";
 
-const client = new PrismaClient()
+const client = new PrismaClient();
 
 export const auth = lucia({
 	adapter: prisma(client, {
-		user: "user",
+		user: "user",// model User {}
 		key: "key", // model Key {}
-		session: "session", // model Session {}
+		session: "session" // model Session {}
 	}),
 	env: process.env.NODE_ENV === "development" ? "DEV" : "PROD",
 	middleware: nextjs(),
