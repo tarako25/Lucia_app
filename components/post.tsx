@@ -14,13 +14,14 @@ const page = (props:any) => {
     user: {
         id: string;
         username: string;
+        createdAt: Date;
     };
       id: number;
       content: string;
       userId: string;
   }
   const [data, setData] = useState<Data | null>(null);
-
+  
   useEffect(() =>{
     const feychLoard = async () =>{
       const currentURL = window.location.href;
@@ -45,21 +46,17 @@ const page = (props:any) => {
       }
       feychLoard()
   },[])
-  console.log(data)
 
   return (
     <>
     <div>Message_App</div>
-        <p>【ユーザー名】</p>
-        <p>{username}</p>
-        <p>【ユーザーID】</p>
-        <p>{userId}</p>
-    <p>
-    {data ? data.user.username : null}
-    </p>
-    <p>
-      {data ? data.content : null}
-    </p>
+    <p>【ユーザー名】</p>
+    <p>{username}</p>
+    <p>【ユーザーID】</p>
+    <p>{userId}</p>
+    <p>{data ? new Date(data.createdAt).toLocaleString() : null}</p>
+    <p>{data ? data.user.username : null}</p>
+    <p>{data ? data.content : null}</p>
     </>
   )
 }

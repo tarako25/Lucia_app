@@ -15,7 +15,7 @@ export async function POST (req: Request, res:NextResponse){
     try {
         await DB();
         const no = await req.json();
-        const post_no =parseInt(no);
+        const post_no = parseInt(no);
         const post = await prisma.message.findFirst({
             where:{
                 id: post_no
