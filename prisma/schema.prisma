@@ -16,6 +16,7 @@ model User {
   auth_session Session[]
   key          Key[]
   messages Message[]//追加
+  comment Comment[]//追加
 }
 
 model Session {
@@ -37,12 +38,23 @@ model Key {
   @@index([user_id])
 }
 
-//追加
 model Message {
   id      Int     @id @default(autoincrement())
   userId  String
   content String
   createdAt DateTime
   user    User    @relation(fields: [userId], references: [id])
+  comment Comment[]
+
+  @@index([userId])
 }
 
+model Comment {
+  coment_id      Int     @id @default(autoincrement())
+  id      Int
+  userId  String
+  content String
+  createdAt DateTime
+  user    User    @relation(fields: [userId], references: [id])
+  message      Message    @relation(fields: [id], references: [id])
+}

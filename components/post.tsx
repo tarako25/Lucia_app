@@ -14,11 +14,11 @@ const page = (props:any) => {
     user: {
         id: string;
         username: string;
-        createdAt: Date;
     };
       id: number;
       content: string;
       userId: string;
+      createdAt: Date;
   }
   const [data, setData] = useState<Data | null>(null);
   
@@ -54,6 +54,7 @@ const page = (props:any) => {
     <p>{username}</p>
     <p>【ユーザーID】</p>
     <p>{userId}</p>
+    <p>【記事内容】</p>
     <p>{data ? new Date(data.createdAt).toLocaleString() : null}</p>
     <p>{data ? data.user.username : null}</p>
     <p>{data ? data.content : null}</p>
