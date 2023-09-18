@@ -25,3 +25,4 @@ This example is built for Node.js 20. If you're using Node.js 16/18, un-comment 
 | `id`       | `string` |        |
 | `username` | `string` |   ✓    |
 "# sample_lucia" 
+"# lucia_app" 
