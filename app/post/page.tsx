@@ -11,10 +11,10 @@ const Page = async () => {
 	return (
 		<>
     	<Post userId={session.user.userId} username={session.user.username}/>
+		<Comment userId={session.user.userId}/>
 		<Link  href="././">
 			戻る
 		</Link>
-		<Comment userId={session.user.userId}/>
 		<Form action="/api/logout">
 			<input type="submit" value="Sign out" />
 		</Form>

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 interface Item {
     id: number;
     content: string;
+    comment_count: number;
   }
 
 function list(props:any) {
@@ -42,6 +43,7 @@ function list(props:any) {
             console.log("ロード中にエラーが発生しました");
         }
         const data = await response.json();
+        console.log(data);
         setData(data.list)
     }
     //マウント時に更新
@@ -68,7 +70,7 @@ function list(props:any) {
     {data.slice().reverse().map((item) => (
         <Link key ={item.id} href={`/post?no=${item.id}`}>
             <p>{item.content}</p>
-            <p>コメント数(1)</p>
+            <p>{item.comment_count}</p>
         </Link>
     ))}
     </ul>

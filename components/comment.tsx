@@ -7,6 +7,8 @@ interface Item {
     id: number;
     content: string;
     no: number;
+    comment_id: number;
+    createdAt: Date;
   }
 
 
@@ -43,12 +45,19 @@ const comment = (props:any) => {
 
     //Get
     const getComent = async() => {
-        const response = await fetch('http://localhost:3000/api');
+        const response = await fetch('http://localhost:3000/api/comment', {
+        method: "POST",
+        headers: {
+          'Content-type':'application/json',
+        },
+        body: JSON.stringify(post_no)
+        });
         if(!response.ok){
             console.log("ロード中にエラーが発生しました");
         }
         const data = await response.json();
-        setData(data.list)
+        setData(data.comment)
+        console.log(data)
     }
     //マウント時に更新
     useEffect(() => {
@@ -63,10 +72,10 @@ const comment = (props:any) => {
          </form>
         <ul>
             {data.slice().reverse().map((item) => (
-            <Link key ={item.id} href="error">
+            <div key ={item.comment_id}>
+                <p>{new Date(item.createdAt).toLocaleString()}</p>
                 <p>{item.content}</p>
-                <p>コメント数(1)</p>
-            </Link>
+            </div>
             ))}
         </ul>
         </>
