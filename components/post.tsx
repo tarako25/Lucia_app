@@ -1,15 +1,14 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter,useSearchParams } from 'next/navigation'
 
 const page = (props:any) => {
 
-    const {userId, username} = props;
-  /*
+  const {userId, username} = props;
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const a = searchParams.get("no")
-  console.log(a);
-  */
+  const post_no = searchParams.get("no")
+
   interface Data {
     user: {
         id: string;
@@ -22,11 +21,22 @@ const page = (props:any) => {
   }
   const [data, setData] = useState<Data | null>(null);
   
+  const handleDelete = async() => {
+    const log = confirm("投稿を削除しますか?");
+        if(!log){
+            return;
+        }
+    const response = await fetch(`http://localhost:3000/api/delete?id=${post_no}`, {
+      method: "DELETE",
+    });
+    if(!response.ok){
+      console.log("ロード中にエラーが発生しました");
+    }else{
+      router.back();
+    }
+  }
   useEffect(() =>{
     const feychLoard = async () =>{
-      const currentURL = window.location.href;
-      const url = new URL(currentURL);
-      const post_no = url.searchParams.get("no");
 
       //api(GET)
       const response = await fetch('http://localhost:3000/api/post', {
@@ -49,15 +59,13 @@ const page = (props:any) => {
 
   return (
     <>
-    <div>Message_App</div>
-    <p>【ユーザー名】</p>
-    <p>{username}</p>
-    <p>【ユーザーID】</p>
-    <p>{userId}</p>
     <p>【記事内容】</p>
     <p>{data ? new Date(data.createdAt).toLocaleString() : null}</p>
     <p>{data ? data.user.username : null}</p>
     <p>{data ? data.content : null}</p>
+    {data && data.userId === userId &&(
+      <button onClick={handleDelete}>削除</button>
+    )}
     </>
   )
 }

@@ -39,6 +39,19 @@ export async function POST (req: Request, res:NextResponse){
                 }, 
             }
         });
+        const count = await prisma.comment.count({
+            where: {
+                id: Number(post_no)
+            }
+        })
+        const update = await prisma.message.update({
+            where: {
+                id: Number(post_no)
+            },
+            data: {
+                comment_count: count
+            }
+        })
         return NextResponse.json({ message: "Success", comment}, {status: 201});
     } catch (err) {
         console.log(err)

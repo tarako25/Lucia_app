@@ -18,6 +18,9 @@ export async function POST (req: Request, res:NextResponse){
         const mylist = await prisma.message.findMany({
             where:{
                 userId: userId
+            },
+            orderBy: {
+                id: 'desc'
             }
         });
         return NextResponse.json({ message: "Success", mylist}, {status: 201});

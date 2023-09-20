@@ -4,12 +4,14 @@ import Post from "@/components/post";
 import Form from "@/components/form";
 import Link from "next/link";
 import Comment from "@/components/comment";
+import Layout from "@/components/layout";
 
 const Page = async () => {
 	const session = await getPageSession();
 	if (!session) redirect("/login");
 	return (
 		<>
+		<Layout userId={session.user.userId} username={session.user.username}/>
     	<Post userId={session.user.userId} username={session.user.username}/>
 		<Comment userId={session.user.userId}/>
 		<Link  href="././">

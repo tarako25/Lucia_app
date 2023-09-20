@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 interface Item {
     id: number;
     content: string;
+    comment_count: number;
   }
 
   function mylist(props:any) {
@@ -57,11 +58,6 @@ interface Item {
 
   return (
     <>
-    <div>Message_App</div>
-        <p>【ユーザー名】</p>
-        <p>{username}</p>
-        <p>【ユーザーID】</p>
-        <p>{userId}</p>
     <form action="" onSubmit={handleSubmit}>
         <input type="text" name="msg"/>
         <input type="submit" />
@@ -71,10 +67,10 @@ interface Item {
         全ての投稿
     </Link>
     <ul>
-    {data.slice().reverse().map((item) => (
+    {data.map((item) => (
       <Link key ={item.id} href={`/post?no=${item.id}`}>
         <p>{item.content}</p>
-        <p>コメント数(1)</p>
+        <p>コメント数({item.comment_count})</p>
       </Link>
     ))}
     </ul>

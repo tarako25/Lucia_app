@@ -14,7 +14,11 @@ export async function DB(){
 export async function GET (req: Request, res:NextResponse){
     try {
         await DB();
-        const list = await prisma.message.findMany();
+        const list = await prisma.message.findMany({
+            orderBy: {
+                id: 'desc'
+            }
+        });
         return NextResponse.json({ message: "Success", list}, {status: 201});
     } catch (err) {
         console.log("エラー",err)

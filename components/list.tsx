@@ -53,11 +53,6 @@ function list(props:any) {
 
   return (
     <>
-    <div>Message_App</div>
-        <p>【ユーザー名】</p>
-        <p>{username}</p>
-        <p>【ユーザーID】</p>
-        <p>{userId}</p>
     <form action="" onSubmit={handleSubmit}>
         <input type="text" name="msg"/>
         <input type="submit" />
@@ -67,10 +62,10 @@ function list(props:any) {
         自分の投稿
     </Link>
     <ul>
-    {data.slice().reverse().map((item) => (
+    {data.map((item) => (
         <Link key ={item.id} href={`/post?no=${item.id}`}>
             <p>{item.content}</p>
-            <p>{item.comment_count}</p>
+            <p>コメント数({item.comment_count})</p>
         </Link>
     ))}
     </ul>
