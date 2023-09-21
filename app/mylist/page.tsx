@@ -1,17 +1,21 @@
 import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
 import MyList from "@/components/mylist"
-import Form from "@/components/form";
+import Side from "@/components/side";
 
 const Page = async () => {
 	const session = await getPageSession();
 	if (!session) redirect("/login");
 	return (
 		<>
-			<MyList userId={session.user.userId} username={session.user.username}/>
-			<Form action="/api/logout">
-				<input type="submit" value="Sign out" />
-			</Form>
+			<div className="flex justify-around items-top">
+				<div className="w-1/5 bg-gray-500">
+					<Side userId={session.user.userId} username={session.user.username}/>
+				</div>
+				<div className="w-4/6 bg-gray-500">
+					<MyList userId={session.user.userId} username={session.user.username}/>
+				</div>
+			</div>
 		</>
 	);
 };

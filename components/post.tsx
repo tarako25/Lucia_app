@@ -59,13 +59,20 @@ const page = (props:any) => {
 
   return (
     <>
-    <p>【記事内容】</p>
-    <p>{data ? new Date(data.createdAt).toLocaleString() : null}</p>
-    <p>{data ? data.user.username : null}</p>
-    <p>{data ? data.content : null}</p>
-    {data && data.userId === userId &&(
-      <button onClick={handleDelete}>削除</button>
-    )}
+    <div className='flex justify-center items-center'>
+      <div className='bg-white my-5 px-4 text-left w-11/12'>
+        <div className='flex justify-between items-center pt-3'>
+            <div className='font-bold'>{data ? data.user.username : null}</div>
+            <div>{data ? new Date(data.createdAt).toLocaleString() : null}</div>
+        </div>
+        <div className='my-1'>{data ? data.content : null}</div>
+        <div className='mb-3 border rounded px-2 border-gray-400 inline-block'>
+          {data && data.userId === userId &&(
+          <button onClick={handleDelete}>削除</button>
+          )}
+        </div>
+      </div>
+    </div>
     </>
   )
 }
