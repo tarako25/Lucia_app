@@ -14,7 +14,7 @@ interface Item {
 
 const comment = (props:any) => {
 
-    const {userId} = props;
+    const {userId, username} = props;
     const [data, setData] = useState<Item[]>([]);
 
     const searchParams = useSearchParams();
@@ -27,7 +27,8 @@ const comment = (props:any) => {
         const Data = {
             message,
             userId,
-            post_no
+            post_no,
+            username,
         }
         const response = await fetch('http://localhost:3000/api/input_comment', {
         method: "POST",

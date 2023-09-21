@@ -13,7 +13,7 @@ const Page = async () => {
 		<>
 		<Side userId={session.user.userId} username={session.user.username}/>
     	<Post userId={session.user.userId} username={session.user.username}/>
-		<Comment userId={session.user.userId}/>
+		<Comment userId={session.user.userId} username={session.user.username}/>
 		<Link  href="././">
 			戻る
 		</Link>
