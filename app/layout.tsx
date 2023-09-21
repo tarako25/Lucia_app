@@ -11,7 +11,14 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body>{children}</body>
+			<body>
+			<div className="flex justify-center text-center h-screen">
+				<div className="w-10/12 bg-slate-100">
+					<div className="text-3xl font-bold my-14">Message_App</div>
+					{children}
+				</div>
+			</div>
+			</body>
 		</html>
 	);
 }

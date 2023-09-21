@@ -41,6 +41,7 @@ model Key {
 model Message {
   id      Int     @id @default(autoincrement())
   userId  String
+  username String
   content String
   comment_count Int @default(0)
   createdAt DateTime

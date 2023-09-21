@@ -17,6 +17,7 @@ export async function POST (req: Request, res:NextResponse){
         const data = await req.json();
         const msg = data.message
         const user_id = data.userId
+        const username = data.username
         //日付作成
         const now = new Date();
         //ISO形式に変換
@@ -26,6 +27,7 @@ export async function POST (req: Request, res:NextResponse){
                 content: msg,
                 //ISO形式のみ(保存時はISOで＋1hなってるいるがフロントで変換している)
                 createdAt: nowISO8601,
+                username: String(username),
                 user:{
                     connect: {
                         id: user_id // ここで関連するユーザーのIDを指定
