@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
+import  prisma  from "@/lib/prisma";
 
 export async function DB(){
     try {
@@ -11,15 +9,23 @@ export async function DB(){
     }
 }
 
-export async function GET (req: Request, res:NextResponse){
+export async function POST (req: NextRequest, res:NextResponse){
     try {
+        const data = await req.json()
+        const start = data.start
+        const Pageitem = data.Pageitem
         await DB();
         const list = await prisma.message.findMany({
             orderBy: {
                 id: 'desc'
-            }
+            },
+            skip: start,
+            take: Pageitem,
         });
-        return NextResponse.json({ message: "Success", list}, {status: 201});
+        
+        const count = await prisma.message.count()
+
+        return NextResponse.json({ message: "Success", list, count}, {status: 201});
     } catch (err) {
         console.log("エラー",err)
         return NextResponse.json({ message: "Error", err}, {status: 500});

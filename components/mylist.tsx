@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
+import ChatIcon from '@mui/icons-material/Chat';
 
 interface Item {
     id: number;
@@ -81,7 +82,7 @@ interface Item {
                         <div>{new Date(item.createdAt).toLocaleString()}</div>
                     </div>
                     <div className='my-1'>{item.content}</div>
-                    <div className='pb-3'>コメント数({item.comment_count})</div>
+                    <div className='pb-3'><ChatIcon /> {item.comment_count}</div>
                 </Link>
             </div>
         ))}

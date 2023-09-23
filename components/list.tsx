@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import ChatIcon from '@mui/icons-material/Chat';
+import Pagination from '@mui/material/Pagination';
 
 interface Item {
     id: number;
@@ -29,7 +30,7 @@ function list(props:any) {
         const response = await fetch('http://localhost:3000/api/input', {
         method: "POST",
         headers: {
-          'Content-type':'application/json',
+            'Content-type':'application/json',
         },
         body: JSON.stringify(Data)
     });
@@ -40,20 +41,49 @@ function list(props:any) {
     getList();
     }
 
-    //Get
+    //Pagenation
+    const Pageitem = 3
+
+    const [start, setStart] = useState(0);
+    const[page, setPage] = useState(1);
+    const[pagecount, pageCount] = useState(1);
+
+    const handlePage = (page:any) => {
+        setPage(page);
+        const start_e = (page-1) * Pageitem
+        setStart(start_e);
+    }
+    useEffect(() => {
+        getList()
+    },[start])
+    const Page_data = {
+        start,
+        Pageitem,
+    }
+    //POST
     const getList = async() => {
-        const response = await fetch('http://localhost:3000/api');
+        const response = await fetch('http://localhost:3000/api',{
+        method: "POST",
+        headers: {
+            'Content-type':'application/json',
+        },
+        body: JSON.stringify(Page_data)
+        });
         if(!response.ok){
             console.log("ロード中にエラーが発生しました");
         }
         const data = await response.json();
-        console.log(data);
         setData(data.list)
+
+        //ページ数計算
+        const count = Math.ceil(data.count / Pageitem);
+        pageCount(count)
     }
     //マウント時に更新
     useEffect(() => {
         getList();
     },[]);
+
 
   return (
     <>
@@ -69,7 +99,7 @@ function list(props:any) {
         </div>
     </form>
     <div className='my-5'>
-        {data.map((item) => (
+        {data.map((item:any) => (
             <div key ={item.id} className='bg-white my-5 px-4 text-left rounded'>
                 <Link href={`/post?no=${item.id}`}>
                     <div className='flex justify-between items-center pt-3'>
@@ -81,6 +111,11 @@ function list(props:any) {
                 </Link>
             </div>
         ))}
+    </div>
+    <div className='flex items-center justify-center'>
+        <div className='mb-7'>
+            <Pagination count={pagecount} color="primary" page={page} onChange={(e, page) =>handlePage(page)}/>
+        </div>
     </div>
     </>
   )

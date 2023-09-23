@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import  prisma  from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
 
 export async function DB(){
     try {
@@ -46,6 +44,7 @@ export async function POST (req: Request, res:NextResponse){
                 id: Number(post_no)
             }
         })
+        //使ってる
         const update = await prisma.message.update({
             where: {
                 id: Number(post_no)

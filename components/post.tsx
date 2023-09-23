@@ -60,7 +60,7 @@ const page = (props:any) => {
   return (
     <>
     <div className='flex justify-center items-center'>
-      <div className='bg-white px-4 text-left w-11/12'>
+      <div className='bg-white px-4 text-left w-11/12 rounded'>
         <div className='flex justify-between items-center pt-3'>
             <div className='font-bold'>{data ? data.user.username : null}</div>
             <div>{data ? new Date(data.createdAt).toLocaleString() : null}</div>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import List from "@/components/list"
 import MyList from "@/components/mylist"
 
+
 function select(props:any) {
 
     const {userId, username} = props;
@@ -45,9 +46,9 @@ function select(props:any) {
         </div>
     </div>
     {btn === true ? (
-        <List userId={userId} username={username} />
-    ) : 
-        <MyList userId={userId} username={username} />
+            <List userId={userId} username={username} />
+        ) : 
+            <MyList userId={userId} username={username} />
     }
     </>
   )

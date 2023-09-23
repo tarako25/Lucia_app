@@ -80,8 +80,8 @@ const comment = (props:any) => {
             </form>
             <div className='my-5 w-11/12'>
             {data.map((item) => (
-                <div className='bg-white my-5 px-4 text-left'>
-                    <div key ={item.id}>
+                <div key ={item.id} className='bg-white my-5 px-4 text-left rounded'>
+                    <div>
                         <div className='flex justify-between items-center pt-3'>
                             <div className='font-bold'>{item.username}</div>
                             <div>{new Date(item.createdAt).toLocaleString()}</div>
