@@ -1,3 +1,4 @@
+import Link from "next/link";
 import "./globals.css";
 
 export const metadata = {
@@ -12,9 +13,11 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-			<div className="flex justify-center text-center h-screen">
-				<div className="w-10/12 bg-slate-100">
-					<div className="text-3xl font-bold my-14">Message_App</div>
+			<div className="flex justify-center text-center">
+				<div className="w-[900px] h-full">
+					<Link href="./">
+						<div className="text-3xl font-bold my-14">Message_App</div>
+					</Link>
 					{children}
 				</div>
 			</div>

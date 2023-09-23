@@ -61,47 +61,30 @@ interface Item {
 
   return (
     <>
-    <div className='flex justify-center flex-col items-center'>
-        <div className='w-11/12'>
-            <div className='flex w-full justify-between'>
-                <div className='mt-3 w-1/2 text-white'>
-                    {/*恐らく修正必要*/}
-                    <Link href="./">
-                        全ての投稿
-                    </Link>
-                </div>
-                <div className='mt-3 w-1/2 text-white'>
-                    <Link href={`/mylist?=${userId}`}>
-                        自分の投稿
-                    </Link>
-                </div>
-            </div>
-            <form onSubmit={handleSubmit} className='flex flex-col items-center'>
-                {/*のちにjsでtextareaの高さ自動可変にする*/}
-                <textarea
-                    className='w-full mt-5 px-4 py-5 rounded border-gray-400 border'
-                    name="msg"
-                    placeholder='メッセージを入力して下さい'>
-                </textarea>
-                <div className='flex justify-end w-full'>
-                    <input className='bg-white mt-2 px-5 py-1 rounded border-gray-400 border' type="submit" />
-                </div>
-            </form>
-            <div className='my-5'>
-                {data.map((item) => (
-                    <div className='bg-white my-5 px-4 text-left'>
-                        <Link key ={item.id} href={`/post?no=${item.id}`}>
-                            <div className='flex justify-between items-center pt-3'>
-                                <div className='font-bold'>{item.username}</div>
-                                <div>{new Date(item.createdAt).toLocaleString()}</div>
-                            </div>
-                            <div className='my-1'>{item.content}</div>
-                            <div className='pb-3'>コメント数({item.comment_count})</div>
-                        </Link>
-                    </div>
-                ))}
-            </div>
+    <form onSubmit={handleSubmit} className='flex flex-col items-center'>
+        {/*のちにjsでtextareaの高さ自動可変にする*/}
+        <textarea
+            className='w-full mt-5 px-4 py-5 rounded border-gray-400 border'
+            name="msg"
+            placeholder='メッセージを入力して下さい'>
+        </textarea>
+        <div className='flex justify-end w-full'>
+            <input className='bg-white mt-2 px-5 py-1 rounded border-gray-400 border' type="submit" />
         </div>
+    </form>
+    <div className='my-5'>
+        {data.map((item) => (
+            <div key ={item.id} className='bg-white my-5 px-4 text-left rounded'>
+                <Link href={`/post?no=${item.id}`}>
+                    <div className='flex justify-between items-center pt-3'>
+                        <div className='font-bold'>{item.username}</div>
+                        <div>{new Date(item.createdAt).toLocaleString()}</div>
+                    </div>
+                    <div className='my-1'>{item.content}</div>
+                    <div className='pb-3'>コメント数({item.comment_count})</div>
+                </Link>
+            </div>
+        ))}
     </div>
     </>
   )

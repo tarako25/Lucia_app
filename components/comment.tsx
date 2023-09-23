@@ -1,14 +1,13 @@
 "use client"
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-
+import { useSearchParams } from 'next/navigation'
 interface Item {
     id: number;
     content: string;
     no: number;
     comment_id: number;
     createdAt: Date;
+    username: string;
   }
 
 
@@ -67,18 +66,32 @@ const comment = (props:any) => {
 
     return(
         <>
-        <form action="" onSubmit={handleSubmit}>
-            <input type="text" name="msg"/>
-            <input type="submit" />
-         </form>
-        <ul>
-            {data.slice().reverse().map((item) => (
-            <div key ={item.comment_id}>
-                <p>{new Date(item.createdAt).toLocaleString()}</p>
-                <p>{item.content}</p>
-            </div>
+        <div className='flex flex-col items-center'>
+            <form onSubmit={handleSubmit} className='w-11/12'>
+                {/*のちにjsでtextareaの高さ自動可変にする*/}
+                <textarea
+                    className='w-full mt-4 px-4 py-5 rounded border-gray-400 border'
+                    name="msg"
+                    placeholder='メッセージを入力して下さい'>
+                </textarea>
+                <div className='flex justify-end w-full'>
+                    <input className='bg-white mt-2 px-5 py-1 rounded border-gray-400 border' type="submit" />
+                </div>
+            </form>
+            <div className='my-5 w-11/12'>
+            {data.map((item) => (
+                <div className='bg-white my-5 px-4 text-left'>
+                    <div key ={item.id}>
+                        <div className='flex justify-between items-center pt-3'>
+                            <div className='font-bold'>{item.username}</div>
+                            <div>{new Date(item.createdAt).toLocaleString()}</div>
+                        </div>
+                        <div className='mt-2 pb-6'>{item.content}</div>
+                    </div>
+                </div>
             ))}
-        </ul>
+        </div>
+        </div>
         </>
     )
 }
