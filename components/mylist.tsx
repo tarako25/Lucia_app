@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import ChatIcon from '@mui/icons-material/Chat';
 import Pagination from '@mui/material/Pagination';
+import { PageElement } from '@/lib/pagenation';
 interface Item {
     id: number;
     content: string;
@@ -13,7 +14,7 @@ interface Item {
 
   function mylist(props:any) {
 
-      const {userId, username, D_number} = props;
+      const {userId, username} = props;
       const [data, setData] = useState<Item[]>([]);
 
       //input
@@ -41,7 +42,7 @@ interface Item {
     }
 
     //Pagenation
-    const Pageitem = D_number
+    const Pageitem = PageElement
 
     const [start, setStart] = useState(0);
     const[page, setPage] = useState(1);

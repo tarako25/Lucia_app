@@ -8,9 +8,6 @@ function select(props:any) {
 
     const {userId, username} = props;
 
-    //Pagenation１ページの表示枚数
-    const D_number = 10
-
     const [btn, setBtn] = useState(true)
 
     const handleSelectAll = () => {
@@ -50,9 +47,9 @@ function select(props:any) {
         </div>
     </div>
     {btn === true ? (
-            <List userId={userId} username={username} D_number={D_number}/>
+            <List userId={userId} username={username}/>
         ) : 
-            <MyList userId={userId} username={username} D_number={D_number}/>
+            <MyList userId={userId} username={username}/>
     }
     </>
   )

@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Pagination from '@mui/material/Pagination';
+import { PageElement } from '@/lib/pagenation';
+
 interface Item {
     id: number;
     content: string;
@@ -45,7 +47,7 @@ const comment = (props:any) => {
     }
 
     //Pagenation
-    const Pageitem = 10;
+    const Pageitem = PageElement;
 
     const [start, setStart] = useState(0);
     const[page, setPage] = useState(1);
