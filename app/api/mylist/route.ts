@@ -13,16 +13,28 @@ export async function DB(){
 export async function POST (req: Request, res:NextResponse){
     try {
         await DB();
-        const userId = await req.json();
+        const data = await req.json();
+        const userId = data.userId
+        const start = data.start
+        const Pageitem = data.Pageitem
         const mylist = await prisma.message.findMany({
             where:{
                 userId: userId
             },
             orderBy: {
                 id: 'desc'
-            }
+            },
+            skip: start,
+            take: Pageitem,
         });
-        return NextResponse.json({ message: "Success", mylist}, {status: 201});
+        
+        const count = await prisma.message.count({
+            where:{
+                userId: userId
+        }
+        })
+
+        return NextResponse.json({ message: "Success", mylist, count}, {status: 201});
     } catch (err) {
         return NextResponse.json({ message: "Error", err}, {status: 500});
     } finally {

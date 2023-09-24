@@ -12,13 +12,21 @@ export async function DB(){
 export async function POST (req: Request, res:NextResponse){
     try {
         await DB();
-        const post_no = await req.json();
+        const data = await req.json();
+        const post_no = data.post_no;
+        const start = data.start;
+        const Pageitem = data.Pageitem
         const comment = await prisma.comment.findMany({
             where:{
                 id: parseInt(post_no)
-            }
+            },
+            skip: start,
+            take: Pageitem,
         });
-        return NextResponse.json({ message: "Success", comment}, {status: 201});
+
+        const count = await prisma.comment.count()
+
+        return NextResponse.json({ message: "Success", comment, count}, {status: 201});
     } catch (err) {
         return NextResponse.json({ message: "Error", err}, {status: 500});
     } finally {

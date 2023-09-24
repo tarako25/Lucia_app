@@ -11,10 +11,10 @@ export async function DB(){
 
 export async function POST (req: NextRequest, res:NextResponse){
     try {
+        await DB();
         const data = await req.json()
         const start = data.start
         const Pageitem = data.Pageitem
-        await DB();
         const list = await prisma.message.findMany({
             orderBy: {
                 id: 'desc'

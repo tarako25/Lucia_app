@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
+import Pagination from '@mui/material/Pagination';
 interface Item {
     id: number;
     content: string;
@@ -43,6 +44,19 @@ const comment = (props:any) => {
     getComent();
     }
 
+    //Pagenation
+    const Pageitem = 10;
+
+    const [start, setStart] = useState(0);
+    const[page, setPage] = useState(1);
+    const[pagecount, pageCount] = useState(1);
+
+    const handlePage = (page:any) => {
+        setPage(page);
+        const start_e = (page-1) * Pageitem
+        setStart(start_e);
+    }
+
     //Get
     const getComent = async() => {
         const response = await fetch('http://localhost:3000/api/comment', {
@@ -50,7 +64,7 @@ const comment = (props:any) => {
         headers: {
           'Content-type':'application/json',
         },
-        body: JSON.stringify(post_no)
+        body: JSON.stringify(Page_data)
         });
         if(!response.ok){
             console.log("ロード中にエラーが発生しました");
@@ -58,7 +72,21 @@ const comment = (props:any) => {
         const data = await response.json();
         setData(data.comment)
         console.log(data)
+        //ページ数計算
+        const count = Math.ceil(data.count / Pageitem);
+        pageCount(count)
     }
+     //ページがsetされた時
+     useEffect(() => {
+        getComent()
+    },[start])
+
+    const Page_data = {
+        post_no,
+        start,
+        Pageitem,
+    }
+
     //マウント時に更新
     useEffect(() => {
         getComent();
@@ -80,7 +108,7 @@ const comment = (props:any) => {
             </form>
             <div className='my-5 w-11/12'>
             {data.map((item) => (
-                <div key ={item.id} className='bg-white my-5 px-4 text-left rounded'>
+                <div key ={item.comment_id} className='bg-white my-5 px-4 text-left rounded'>
                     <div>
                         <div className='flex justify-between items-center pt-3'>
                             <div className='font-bold'>{item.username}</div>
@@ -90,8 +118,11 @@ const comment = (props:any) => {
                     </div>
                 </div>
             ))}
-        </div>
-        </div>
+            </div>
+                <div className='mb-7'>
+                    <Pagination count={pagecount} color="primary" page={page} onChange={(e, page) =>handlePage(page)}/>
+                </div>
+            </div>
         </>
     )
 }

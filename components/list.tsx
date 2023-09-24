@@ -14,7 +14,7 @@ interface Item {
 
 function list(props:any) {
 
-    const {userId, username} = props;
+    const {userId, username, D_number} = props;
     const [data, setData] = useState<Item[]>([]);
 
     //input
@@ -42,7 +42,7 @@ function list(props:any) {
     }
 
     //Pagenation
-    const Pageitem = 3
+    const Pageitem = D_number
 
     const [start, setStart] = useState(0);
     const[page, setPage] = useState(1);
@@ -52,13 +52,6 @@ function list(props:any) {
         setPage(page);
         const start_e = (page-1) * Pageitem
         setStart(start_e);
-    }
-    useEffect(() => {
-        getList()
-    },[start])
-    const Page_data = {
-        start,
-        Pageitem,
     }
     //POST
     const getList = async() => {
@@ -79,6 +72,17 @@ function list(props:any) {
         const count = Math.ceil(data.count / Pageitem);
         pageCount(count)
     }
+
+    //ページがsetされた時
+    useEffect(() => {
+        getList()
+    },[start])
+
+    const Page_data = {
+        start,
+        Pageitem,
+    }
+
     //マウント時に更新
     useEffect(() => {
         getList();

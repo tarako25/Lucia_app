@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import ChatIcon from '@mui/icons-material/Chat';
-
+import Pagination from '@mui/material/Pagination';
 interface Item {
     id: number;
     content: string;
@@ -13,7 +13,7 @@ interface Item {
 
   function mylist(props:any) {
 
-      const {userId, username} = props;
+      const {userId, username, D_number} = props;
       const [data, setData] = useState<Item[]>([]);
 
       //input
@@ -40,21 +40,51 @@ interface Item {
     getMyList();
     }
 
+    //Pagenation
+    const Pageitem = D_number
+
+    const [start, setStart] = useState(0);
+    const[page, setPage] = useState(1);
+    const[pagecount, pageCount] = useState(1);
+
+    const handlePage = (page:any) => {
+        setPage(page);
+        const start_e = (page-1) * Pageitem
+        setStart(start_e);
+    }
+
     //get
+    //POST
     const getMyList = async() => {
-        const response = await fetch('http://localhost:3000/api/mylist', {
-          method: "POST",
-          headers: {
+        const response = await fetch('http://localhost:3000/api/mylist',{
+        method: "POST",
+        headers: {
             'Content-type':'application/json',
-          },
-          body: JSON.stringify(userId)
+        },
+        body: JSON.stringify(Page_data)
         });
         if(!response.ok){
             console.log("ロード中にエラーが発生しました");
         }
         const data = await response.json();
         setData(data.mylist)
+
+        //ページ数計算
+        const count = Math.ceil(data.count / Pageitem);
+        pageCount(count)
     }
+
+    //ページがsetされた時
+    useEffect(() => {
+        getMyList()
+    },[start])
+
+    const Page_data = {
+        userId,
+        start,
+        Pageitem,
+    }
+
     //マウント時に更新
     useEffect(() => {
         getMyList();
@@ -86,6 +116,11 @@ interface Item {
                 </Link>
             </div>
         ))}
+    </div>
+    <div className='flex items-center justify-center'>
+        <div className='mb-7'>
+            <Pagination count={pagecount} color="primary" page={page} onChange={(e, page) =>handlePage(page)}/>
+        </div>
     </div>
     </>
   )
