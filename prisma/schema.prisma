@@ -13,6 +13,7 @@ datasource db {
 model User {
   id           String    @id @unique
   username String
+  production String?
   auth_session Session[]
   key          Key[]
   messages Message[]//追加
