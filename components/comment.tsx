@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Pagination from '@mui/material/Pagination';
 import { PageElement } from '@/lib/pagenation';
+import toast, { Toaster } from 'react-hot-toast'
 
 interface Item {
     id: number;
@@ -32,6 +33,7 @@ const comment = (props:any) => {
             post_no,
             username,
         }
+        toast.loading("投稿中..", {id:"1"})
         const response = await fetch('http://localhost:3000/api/input_comment', {
         method: "POST",
         headers: {
@@ -44,6 +46,7 @@ const comment = (props:any) => {
         console.log("ロード中にエラーが発生しました");
     }
     getComent();
+    toast.success("投稿しました", {id:"1"})
     }
 
     //Pagenation
@@ -96,6 +99,7 @@ const comment = (props:any) => {
 
     return(
         <>
+        <Toaster />
         <div className='flex flex-col items-center'>
             <form onSubmit={handleSubmit} className='w-11/12'>
                 {/*のちにjsでtextareaの高さ自動可変にする*/}

@@ -19,9 +19,12 @@ const Form = ({
 				method="post"
 				onSubmit={async (e) => {
 					e.preventDefault();
+					//ログアウトの場合アラート出す
+					if(action == "/api/logout"){
 					const log = confirm("ログアウトしてもよろしいですか?");
 					if(!log){
 						return;
+						}
 					}
 					setErrorMessage(null);
 					const formData = new FormData(e.currentTarget);

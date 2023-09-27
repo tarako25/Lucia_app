@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import ChatIcon from '@mui/icons-material/Chat';
 import Pagination from '@mui/material/Pagination';
 import { PageElement } from '@/lib/pagenation';
+import toast, { Toaster } from 'react-hot-toast'
 interface Item {
     id: number;
     content: string;
@@ -27,6 +28,7 @@ interface Item {
             userId,
             username,
         }
+        toast.loading("投稿中..", {id:"1"})
         const response = await fetch('http://localhost:3000/api/input', {
         method: "POST",
         headers: {
@@ -39,6 +41,7 @@ interface Item {
         console.log("ロード中にエラーが発生しました");
     }
     getMyList();
+    toast.success("投稿しました", {id:"1"})
     }
 
     //Pagenation
@@ -93,6 +96,7 @@ interface Item {
 
   return (
     <>
+    <Toaster />
     <form onSubmit={handleSubmit} className='flex flex-col items-center'>
         {/*のちにjsでtextareaの高さ自動可変にする*/}
         <textarea

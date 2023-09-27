@@ -23,9 +23,9 @@ const page = (props:any) => {
   
   const handleDelete = async() => {
     const log = confirm("投稿を削除しますか?");
-        if(!log){
-            return;
-        }
+      if(!log){
+          return;
+      }
     const response = await fetch(`http://localhost:3000/api/delete?id=${post_no}`, {
       method: "DELETE",
     });
