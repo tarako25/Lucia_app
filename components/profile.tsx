@@ -30,7 +30,18 @@ function profile(props:any) {
     useEffect(() => {
         getUserData()
     },[])
+
+    const handleEdit = () => {
+        
+    }
   return (
+    <>
+    {/* left-1/2 right-2/4 中央寄せ (position無でも可能)*/}
+    <div className='flex flex-col items-center fixed hidden'>
+        <div className='w-[400px] h-[300px] left-1/2 right-2/4 bg-yellow-200'>
+            <div>{userData?.username}</div>
+        </div>
+    </div>
     <div className='flex flex-col items-center'>
         <div className='w-full mt-5 px-4 py-5 rounded bg-white border'>
             <div className='flex mt-5 mb-10'>
@@ -38,7 +49,7 @@ function profile(props:any) {
             </div>
             <div className='flex justify-between mb-5'>
                 <div>{userData?.username}</div>
-                <div>アカウント情報を編集</div>
+                <button onClick={handleEdit}>アカウント情報を編集</button>
             </div>
             <div className='flex flex-col items-start'>
                 <div className='mb-5'>{userData?.production}</div>
@@ -49,6 +60,7 @@ function profile(props:any) {
             </div>
         </div>
     </div>
+    </>
   )
 }
 
