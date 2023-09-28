@@ -13,12 +13,14 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-			<div className="flex justify-center text-center">
-				<div className="w-[900px] h-full">
-					<Link href="./">
-						<div className="text-3xl font-bold my-14">Message_App</div>
-					</Link>
-					{children}
+			<div className="relative">
+				<div className="flex justify-center text-center">
+					<div className="w-[900px] h-full">
+						<Link href="./">
+							<div className="text-3xl font-bold my-14">Message_App</div>
+						</Link>
+						{children}
+					</div>
 				</div>
 			</div>
 			</body>

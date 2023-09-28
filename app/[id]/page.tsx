@@ -8,7 +8,7 @@ const Page = async () => {
 	if (!session) redirect("/login");
 	return (
 		<>
-			<div className="flex justify-around bg-green-50 items-top mb-7 relative">
+			<div className="flex justify-around  items-top mb-7">
 				<div className="w-1/4 bg-gray-500 h-[500px] rounded">
 					<Side userId={session.user.userId} username={session.user.username}/>
 				</div>
