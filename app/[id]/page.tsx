@@ -15,7 +15,7 @@ const Page = async () => {
 				<div className="w-2/3 bg-gray-500 mb-2 rounded">
 					<div className='flex justify-center flex-col items-center'>
 						<div className='w-11/12'>
-							<Profile userId={session.user.userId} username={session.user.username}/>
+							<Profile userId={session.user.userId}/>
 						</div>
 					</div>
 				</div>

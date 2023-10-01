@@ -12,15 +12,34 @@ export async function DB(){
 export async function POST (req: NextRequest, res:NextResponse){
     try {
         await DB();
-        const userId = await req.json()
-        
+        const data = await req.json()
+        const userId = data.userId
+        const Id = data.Id
+
+        //follow
         const user = await prisma.user.findFirst({
             where: {
-                id: userId
+                id: Id
             },
         });
-
-        return NextResponse.json({ message: "Success", user}, {status: 201});
+        const followed = await prisma.follow.findFirst({
+            where: {
+                userId:userId,
+                followId:Id
+            }
+        })
+        const followed_count = await prisma.follow.count({
+            where: {
+                userId:Id,
+            }
+        })
+        //follow
+        const followeder_count = await prisma.follower.count({
+            where: {
+                userId:Id,
+            }
+        })
+        return NextResponse.json({ message: "Success", user, followed, followed_count, followeder_count}, {status: 201});
     } catch (err) {
         console.log("エラー",err)
         return NextResponse.json({ message: "Error", err}, {status: 500});

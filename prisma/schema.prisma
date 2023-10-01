@@ -16,8 +16,10 @@ model User {
   production String?
   auth_session Session[]
   key          Key[]
-  messages Message[]//追加
-  comment Comment[]//追加
+  messages Message[]
+  comment Comment[]
+  follow Follow[]
+  follower Follower[]
 }
 
 model Session {
@@ -61,4 +63,24 @@ model Comment {
   createdAt DateTime
   user    User    @relation(fields: [userId], references: [id])
   message      Message    @relation(fields: [id], references: [id])
+}
+
+model Follow {
+  no          Int     @id @default(autoincrement())
+  userId  String 
+  followId  String
+  followname String
+  createdAt DateTime
+  user    User    @relation(fields: [userId], references: [id])
+  follower Follower[]
+}
+
+model Follower {
+  follow_no   Int @id
+  userId  String
+  followerId  String
+  followername String
+  createdAt DateTime
+  follow    Follow    @relation(fields: [follow_no], references: [no])
+  user    User    @relation(fields: [userId], references: [id])
 }

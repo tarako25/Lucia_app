@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { useRouter,useSearchParams } from 'next/navigation'
+import Link from "next/link";
 
 const page = (props:any) => {
 
@@ -62,8 +63,10 @@ const page = (props:any) => {
     <div className='flex justify-center items-center'>
       <div className='bg-white px-4 text-left w-11/12 rounded'>
         <div className='flex justify-between items-center pt-3'>
+          <Link href={data ? data.user.id : ""} className="">
             <div className='font-bold'>{data ? data.user.username : null}</div>
-            <div>{data ? new Date(data.createdAt).toLocaleString() : null}</div>
+          </Link>
+          <div>{data ? new Date(data.createdAt).toLocaleString() : null}</div>
         </div>
         <div className='my-7'>{data ? data.content : null}</div>
         <div className='mb-3 border rounded px-2 border-gray-400 inline-block'>
