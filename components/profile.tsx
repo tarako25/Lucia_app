@@ -1,5 +1,5 @@
 "use client"
-import React, { use, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast'
 import Link from "next/link";
@@ -94,6 +94,8 @@ function profile(props:any) {
             getUserData()
             router.refresh();
             toast.success("プロフィールを更新しました", {id:"1"})
+        }else{
+            toast.error('プロフィールの更新に失敗しました', {id:"1"})
         }
     }
     //follow
@@ -184,8 +186,9 @@ function profile(props:any) {
                     </div>
                     {userData && userData.id !== userId && !followed ? (
                         <button className="border py-1 px-3" onClick={handleFollow}>フォロー</button>
-                    ) : (
+                    ) : (userData && userData.id !== userId &&(
                         <button className="border py-1 px-3" onClick={handleUnFollow}>フォロー解除</button>
+                        )
                     )}
                 </div>
             </div>

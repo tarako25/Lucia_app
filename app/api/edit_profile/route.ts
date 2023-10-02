@@ -16,7 +16,7 @@ export async function PUT (req: Request, res:NextResponse){
         const data = await req.json();
         const username = data.name
         const production = data.pr
-        const userId = data.userId
+        const userId = data.urlId
         const user = await prisma.user.update({
             data: {
                 username: username,
