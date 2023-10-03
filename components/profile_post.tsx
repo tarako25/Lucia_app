@@ -1,24 +1,61 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import Link from "next/link";
 import ChatIcon from '@mui/icons-material/Chat';
 
+interface Item {
+    data: string;
+    content: string;
+  }
+
 function profile_post() {
+
+    const [data, setData] = useState<Item[]>([]);
+    const [count, setCount] = useState("")
+    const [urlid, setUrlId] = useState("")
+    useEffect(() => {
+        const url = location.pathname;
+        const urlId = url.slice(1);
+        setUrlId(urlId)
+    },[])
+
+    useEffect(() => {
+        getProfileList()
+    },[urlid])
+    const getProfileList = async() => {
+        const response = await fetch('http://localhost:3000/api/profile_list',{
+        method: "POST",
+        headers: {
+            'Content-type':'application/json',
+        },
+        body: JSON.stringify(urlid)
+        });
+        if(!response.ok){
+            console.log("ロード中にエラーが発生しました");
+        }
+        const data = await response.json();
+        setData(data.list)
+        setCount(data.count)
+        console.log(data.list)
+
+    }
+
   return (
     <>
-    <Link href="/">
-        <div className='w-full px-4 pb-4 mt-5 rounded bg-white border'>
-            <div>
-                <div className='flex justify-between items-center pt-3'>
-                    <div className='font-bold'>修正箇所</div>
-                    <div>2023/09/29</div>
-                </div>
-                <div className='flex flex-col items-start'>
-                    <div className='mb-2 mt-1'>よろしく</div>
-                    <div className=''><ChatIcon />3</div>
-                </div>
+    <div className='my-5'>
+        {data.map((item:any) => (
+            <div key ={item.id} className='bg-white my-5 px-4 text-left rounded'>
+                <Link href={`/post?no=${item.id}`}>
+                    <div className='flex justify-between items-center pt-3'>
+                        <div className='font-bold'>{item.username}</div>
+                        <div>{new Date(item.createdAt).toLocaleString()}</div>
+                    </div>
+                    <div className='my-1'>{item.content}</div>
+                    <div className='pb-3'><ChatIcon /> {item.comment_count}</div>
+                </Link>
             </div>
-        </div>
-    </Link>
+        ))}
+    </div>
     </>
   )
 }
