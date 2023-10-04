@@ -1,4 +1,5 @@
 "use client";
+
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import ChatIcon from '@mui/icons-material/Chat';
@@ -19,7 +20,7 @@ function list(props:any) {
     const {userId, username} = props;
     const [data, setData] = useState<Item[]>([]);
 
-    //input
+    //メッセージ送信
     const handleSubmit = async(e:any) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -45,7 +46,7 @@ function list(props:any) {
     toast.success("投稿しました", {id:"1"})
     }
 
-    //Pagenation
+    //ページネーション
     const Pageitem = PageElement
 
     const [start, setStart] = useState(0);
@@ -57,7 +58,7 @@ function list(props:any) {
         const start_e = (page-1) * Pageitem
         setStart(start_e);
     }
-    //POST
+    //ページリスト表示(全ての投稿)
     const getList = async() => {
         const response = await fetch('http://localhost:3000/api',{
         method: "POST",

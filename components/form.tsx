@@ -34,8 +34,6 @@ const Form = ({
 						redirect: "manual"
 					});
 					if (response.status === 0) {
-						// redirected
-						// when using `redirect: "manual"`, response status 0 is returned
 						return router.refresh();
 					}
 					if (!response.ok) {

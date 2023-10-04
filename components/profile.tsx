@@ -18,6 +18,8 @@ function profile(props:any) {
 
     const [urlId, setUrlId] = useState("")
     
+
+    //URLからプロフィールID取得
     useEffect(() => {
         const url = location.pathname;
         setUrlId(url.slice(1))
@@ -34,6 +36,7 @@ function profile(props:any) {
     const [followed_count, setFollowed_count] = useState("");
     const [followeder_count, setFolloweder_count] = useState("");
 
+    //プロフィール情報を取得
     const getUserData = async() => {
         const Id = urlId;
         const userData = {
@@ -59,6 +62,7 @@ function profile(props:any) {
         setProduction(data.user.production)
     }
 
+    //プロフィール編集モーダル
     const [boxid, setBoxid] = useState<any>("")
     const handleEditOpen = (e:any) => {
         e.preventDefault()
@@ -72,7 +76,7 @@ function profile(props:any) {
     const [name, setName] = useState("")
     const [production, setProduction] = useState("")
 
-
+    //プロフィール編集
     const handleEdit = async(e:any) => {
         e.preventDefault()
         toast.loading("更新中..", {id:"1"})
@@ -102,6 +106,7 @@ function profile(props:any) {
     const followIdref = useRef<HTMLInputElement>(null)
     const followNameref = useRef<HTMLInputElement>(null)
 
+    //フォロー
     const handleFollow = async() => {
         const elementId = followIdref.current?.innerHTML
         const followId = elementId?.slice(1)
@@ -121,7 +126,7 @@ function profile(props:any) {
             toast.success("フォローしました", {id:"1"})
         }
     }
-    //follow解除
+    //フォロー解除
     const handleUnFollow = async() => {
         const response = await fetch('http://localhost:3000/api/follow', {
             method: "POST",

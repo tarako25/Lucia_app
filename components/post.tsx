@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const page = (props:any) => {
 
-  const {userId, username} = props;
+  const {userId} = props;
   const router = useRouter();
   const searchParams = useSearchParams();
   const post_no = searchParams.get("no")
@@ -22,6 +22,7 @@ const page = (props:any) => {
   }
   const [data, setData] = useState<Data | null>(null);
   
+  //投稿の削除
   const handleDelete = async() => {
     const log = confirm("投稿を削除しますか?");
       if(!log){
@@ -39,7 +40,7 @@ const page = (props:any) => {
   useEffect(() =>{
     const feychLoard = async () =>{
 
-      //api(GET)
+      //投稿詳細コンポーネント
       const response = await fetch('http://localhost:3000/api/post', {
             method: "POST",
             headers: {

@@ -13,6 +13,8 @@ function profile_post() {
     const [data, setData] = useState<Item[]>([]);
     const [count, setCount] = useState("")
     const [urlid, setUrlId] = useState("")
+
+    //URLからプロフィールID取得
     useEffect(() => {
         const url = location.pathname;
         const urlId = url.slice(1);
@@ -22,6 +24,8 @@ function profile_post() {
     useEffect(() => {
         getProfileList()
     },[urlid])
+
+    //Profile投稿取得
     const getProfileList = async() => {
         const response = await fetch('http://localhost:3000/api/profile_list',{
         method: "POST",
@@ -36,8 +40,6 @@ function profile_post() {
         const data = await response.json();
         setData(data.list)
         setCount(data.count)
-        console.log(data.list)
-
     }
 
   return (

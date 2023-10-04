@@ -10,6 +10,7 @@ function select(props:any) {
 
     const [btn, setBtn] = useState(true)
 
+    //投稿表示切替
     const handleSelectAll = () => {
         setBtn(true)
     }

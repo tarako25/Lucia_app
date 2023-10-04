@@ -18,7 +18,7 @@ interface Item {
       const {userId, username} = props;
       const [data, setData] = useState<Item[]>([]);
 
-      //input
+      //メッセージ送信
       const handleSubmit = async(e:any) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -44,7 +44,7 @@ interface Item {
     toast.success("投稿しました", {id:"1"})
     }
 
-    //Pagenation
+    //ページネーション
     const Pageitem = PageElement
 
     const [start, setStart] = useState(0);
@@ -57,8 +57,7 @@ interface Item {
         setStart(start_e);
     }
 
-    //get
-    //POST
+    //ページリスト表示(自分の投稿)
     const getMyList = async() => {
         const response = await fetch('http://localhost:3000/api/mylist',{
         method: "POST",

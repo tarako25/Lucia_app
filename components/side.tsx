@@ -10,6 +10,7 @@ function side(props:any){
 
     return(
         <>
+        {/* サイドバー */}
         <div className="flex justify-center items-center text-left">
             <div className="w-10/12 pb-5 font-bold h-screen">
                 <div className="border-white border-b-2 py-3 mt-5 pl-3 text-white">

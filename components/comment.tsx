@@ -20,9 +20,11 @@ const comment = (props:any) => {
     const {userId, username} = props;
     const [data, setData] = useState<Item[]>([]);
 
+    //URLから投稿NOを取得
     const searchParams = useSearchParams();
     const post_no = searchParams.get("no")
 
+    //コメント送信
     const handleSubmit = async(e:any) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -49,7 +51,7 @@ const comment = (props:any) => {
     toast.success("投稿しました", {id:"1"})
     }
 
-    //Pagenation
+    //ページネーション
     const Pageitem = PageElement;
 
     const [start, setStart] = useState(0);
@@ -62,7 +64,7 @@ const comment = (props:any) => {
         setStart(start_e);
     }
 
-    //Get
+    //コメントを取得
     const getComent = async() => {
         const response = await fetch('http://localhost:3000/api/comment', {
         method: "POST",
