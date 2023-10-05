@@ -51,7 +51,8 @@ function Profile(props:any) {
             body:JSON.stringify(userData)
         });
         if(!response.ok){
-            console.log("ロード中にエラーが発生しました");
+            toast.error('フォローに失敗しました', {id:"1"})
+            console.error('HTTPエラー:', response.statusText);
         }
         const data = await response.json();
         setUserData(data.user)
@@ -100,6 +101,7 @@ function Profile(props:any) {
             toast.success("プロフィールを更新しました", {id:"1"})
         }else{
             toast.error('プロフィールの更新に失敗しました', {id:"1"})
+            console.error('HTTPエラー:', response.statusText);
         }
     }
     //follow
@@ -124,6 +126,9 @@ function Profile(props:any) {
             getUserData()
             router.refresh();
             toast.success("フォローしました", {id:"1"})
+        }else{
+            toast.error('フォローに失敗しました', {id:"1"})
+            console.error('HTTPエラー:', response.statusText);
         }
     }
     //フォロー解除
@@ -136,6 +141,9 @@ function Profile(props:any) {
             getUserData()
             router.refresh();
             toast.success("フォローを解除しました", {id:"1"})
+        }else{
+            toast.error('フォローに失敗しました', {id:"1"})
+            console.error('HTTPエラー:', response.statusText);
         }
     }
   return (

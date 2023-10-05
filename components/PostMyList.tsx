@@ -38,7 +38,7 @@ interface Item {
     });
     e.target.reset();
     if(!response.ok){
-        console.log("ロード中にエラーが発生しました");
+        console.error('HTTPエラー:', response.statusText);
     }
     getMyList();
     toast.success("投稿しました", {id:"1"})
@@ -67,7 +67,7 @@ interface Item {
         body: JSON.stringify(Page_data)
         });
         if(!response.ok){
-            console.log("ロード中にエラーが発生しました");
+            console.error('HTTPエラー:', response.statusText);
         }
         const data = await response.json();
         setData(data.mylist)

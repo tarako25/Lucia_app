@@ -32,7 +32,7 @@ const PostDetail = (props:any) => {
       method: "DELETE",
     });
     if(!response.ok){
-      console.log("ロード中にエラーが発生しました");
+      console.error('HTTPエラー:', response.statusText);
     }else{
       router.back();
     }
@@ -49,7 +49,7 @@ const PostDetail = (props:any) => {
             body: JSON.stringify(post_no)
           });
           if(!response.ok){
-            console.log("ロード中にエラーが発生しました");
+            console.error('HTTPエラー:', response.statusText);
         }
         const element = await response.json();
         if(data === null) {

@@ -45,7 +45,8 @@ const PostComment = (props:any) => {
     });
     e.target.reset();
     if(!response.ok){
-        console.log("ロード中にエラーが発生しました");
+        toast.error("投稿に失敗しました",{id:"1"})
+        console.error('HTTPエラー:', response.statusText);
     }
     getComent();
     toast.success("投稿しました", {id:"1"})
@@ -58,6 +59,12 @@ const PostComment = (props:any) => {
     const[page, setPage] = useState(1);
     const[pagecount, pageCount] = useState(1);
 
+    const Page_data = {
+        post_no,
+        start,
+        Pageitem,
+    }
+    
     const handlePage = (page:any) => {
         setPage(page);
         const start_e = (page-1) * Pageitem
@@ -74,11 +81,11 @@ const PostComment = (props:any) => {
         body: JSON.stringify(Page_data)
         });
         if(!response.ok){
-            console.log("ロード中にエラーが発生しました");
+            console.error('HTTPエラー:', response.statusText);
         }
         const data = await response.json();
         setData(data.comment)
-        console.log(data)
+
         //ページ数計算
         const count = Math.ceil(data.count / Pageitem);
         pageCount(count)
@@ -88,11 +95,6 @@ const PostComment = (props:any) => {
         getComent()
     },[start])
 
-    const Page_data = {
-        post_no,
-        start,
-        Pageitem,
-    }
 
     //マウント時に更新
     useEffect(() => {

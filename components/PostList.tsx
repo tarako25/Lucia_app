@@ -52,6 +52,11 @@ function PostList(props:PostListProps) {
     const[page, setPage] = useState(1);
     const[pagecount, pageCount] = useState(1);
 
+    const Page_data = {
+        start,
+        Pageitem,
+    }
+    
     const handlePage = (page:number) => {
         setPage(page);
         const start_e = (page-1) * Pageitem
@@ -67,7 +72,7 @@ function PostList(props:PostListProps) {
         body: JSON.stringify(Page_data)
         });
         if(!response.ok){
-            console.log("ロード中にエラーが発生しました");
+            console.error('HTTPエラー:', response.statusText);
         }
         const data = await response.json();
         setData(data.list)
@@ -81,11 +86,6 @@ function PostList(props:PostListProps) {
     useEffect(() => {
         getList()
     },[start])
-
-    const Page_data = {
-        start,
-        Pageitem,
-    }
 
     //マウント時に更新
     useEffect(() => {
