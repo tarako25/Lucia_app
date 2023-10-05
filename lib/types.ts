@@ -11,8 +11,3 @@ export  interface PostListProps {
             username: string;
         }
     
-export  interface SubmitPostData {
-            userId: string;
-            username: string;
-            message:FormDataEntryValue | null
-        }

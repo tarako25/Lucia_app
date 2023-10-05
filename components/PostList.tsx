@@ -6,7 +6,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import Pagination from '@mui/material/Pagination';
 import { PageElement } from '@/lib/pagenation';
 import toast, { Toaster } from 'react-hot-toast'
-import { Item, PostListProps, SubmitPostData } from '@/lib/types';
+import { Item, PostListProps} from '@/lib/types';
 
 
 function PostList(props:PostListProps) {
@@ -15,11 +15,11 @@ function PostList(props:PostListProps) {
     const [data, setData] = useState<Item[]>([]);
 
     //メッセージ送信
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e:any) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(e.target);
     const message = formData.get('msg');
-    const Data:SubmitPostData = {
+    const Data = {
         message,
         userId,
         username,
@@ -35,11 +35,11 @@ function PostList(props:PostListProps) {
     });
 
     if (!response.ok) {
-        e.currentTarget.reset();
+        e.arget.reset();
         toast.error("投稿に失敗しました", { id: '1' });
         console.error('HTTPエラー:', response.statusText);
     } else {
-        e.currentTarget.reset();
+        e.target.reset();
         getList();
         toast.success('投稿しました', { id: '1' });
     }
@@ -56,7 +56,7 @@ function PostList(props:PostListProps) {
         start,
         Pageitem,
     }
-    
+
     const handlePage = (page:number) => {
         setPage(page);
         const start_e = (page-1) * Pageitem
