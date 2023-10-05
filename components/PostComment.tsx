@@ -15,7 +15,7 @@ interface Item {
   }
 
 
-const comment = (props:any) => {
+const PostComment = (props:any) => {
 
     const {userId, username} = props;
     const [data, setData] = useState<Item[]>([]);
@@ -36,7 +36,7 @@ const comment = (props:any) => {
             username,
         }
         toast.loading("投稿中..", {id:"1"})
-        const response = await fetch('http://localhost:3000/api/input_comment', {
+        const response = await fetch('http://localhost:3000/api/SubmitPostComment', {
         method: "POST",
         headers: {
           'Content-type':'application/json',
@@ -66,7 +66,7 @@ const comment = (props:any) => {
 
     //コメントを取得
     const getComent = async() => {
-        const response = await fetch('http://localhost:3000/api/comment', {
+        const response = await fetch('http://localhost:3000/api/PostComment', {
         method: "POST",
         headers: {
           'Content-type':'application/json',
@@ -134,4 +134,4 @@ const comment = (props:any) => {
         </>
     )
 }
-export default comment
+export default PostComment

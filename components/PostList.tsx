@@ -15,7 +15,7 @@ interface Item {
     createdAt: Date;
   }
 
-function list(props:any) {
+function PostList(props:any) {
 
     const {userId, username} = props;
     const [data, setData] = useState<Item[]>([]);
@@ -31,7 +31,7 @@ function list(props:any) {
             username,
         }
         toast.loading("投稿中..", {id:"1"})
-        const response = await fetch('http://localhost:3000/api/input', {
+        const response = await fetch('http://localhost:3000/api/SubmitPost', {
         method: "POST",
         headers: {
             'Content-type':'application/json',
@@ -60,7 +60,7 @@ function list(props:any) {
     }
     //ページリスト表示(全ての投稿)
     const getList = async() => {
-        const response = await fetch('http://localhost:3000/api',{
+        const response = await fetch('http://localhost:3000/api/PostList',{
         method: "POST",
         headers: {
             'Content-type':'application/json',
@@ -132,4 +132,4 @@ function list(props:any) {
 }
 
 
-export default list
+export default PostList

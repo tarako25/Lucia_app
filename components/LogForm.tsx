@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const Form = ({
+const LogForm = ({
 	children,
 	action
 }: {
@@ -20,7 +20,7 @@ const Form = ({
 				onSubmit={async (e) => {
 					e.preventDefault();
 					//ログアウトの場合アラート出す
-					if(action == "/api/logout"){
+					if(action == "/api/LogOut"){
 					const log = confirm("ログアウトしてもよろしいですか?");
 					if(!log){
 						return;
@@ -51,4 +51,4 @@ const Form = ({
 	);
 };
 
-export default Form;
+export default LogForm;

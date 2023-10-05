@@ -5,7 +5,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import Link from "next/link";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
-function profile(props:any) {
+function Profile(props:any) {
 
     const {userId} = props
 
@@ -43,7 +43,7 @@ function profile(props:any) {
             Id,
             userId
         }
-        const response = await fetch('http://localhost:3000/api/userdata',{
+        const response = await fetch('http://localhost:3000/api/UserData',{
             method: "POST",
             headers: {
             'Content-type':'application/json',
@@ -88,7 +88,7 @@ function profile(props:any) {
             pr,
             urlId,
         }
-        const response = await fetch('http://localhost:3000/api/edit_profile', {
+        const response = await fetch('http://localhost:3000/api/EditProfile', {
             method: "PUT",
             body: JSON.stringify(Data),
             redirect: "manual"
@@ -116,7 +116,7 @@ function profile(props:any) {
             followName,
             userId,
         }
-        const response = await fetch('http://localhost:3000/api/follow', {
+        const response = await fetch('http://localhost:3000/api/Follow', {
             method: "PUT",
             body: JSON.stringify(FollowData),
         });
@@ -128,7 +128,7 @@ function profile(props:any) {
     }
     //フォロー解除
     const handleUnFollow = async() => {
-        const response = await fetch('http://localhost:3000/api/follow', {
+        const response = await fetch('http://localhost:3000/api/Follow', {
             method: "POST",
             body: JSON.stringify(followed),
         });
@@ -203,4 +203,4 @@ function profile(props:any) {
   )
 }
 
-export default profile
+export default Profile

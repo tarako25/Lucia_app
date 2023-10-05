@@ -1,7 +1,7 @@
 import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
 
-import Form from "@/components/form";
+import LogForm from "@/components/LogForm";
 import Link from "next/link";
 
 const Page = async () => {
@@ -10,7 +10,7 @@ const Page = async () => {
 	return (
 		<>
 			<h1>Sign up</h1>
-			<Form action="/api/signup">
+			<LogForm action="/api/SignUp">
 				<label htmlFor="username">Username</label>
 				<input name="username" id="username" />
 				<br />
@@ -18,7 +18,7 @@ const Page = async () => {
 				<input type="password" name="password" id="password" />
 				<br />
 				<input type="submit" />
-			</Form>
+			</LogForm>
 			<Link href="/login">Sign in</Link>
 		</>
 	);

@@ -1,10 +1,10 @@
-import Form from "@/components/form";
+import LogForm from "@/components/LogForm";
 import Link from "next/link";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
-function side(props:any){
+function SideBar(props:any){
 
     const {userId, username} = props;
 
@@ -18,10 +18,10 @@ function side(props:any){
                 </div>
                 <label htmlFor="logout">
                     <div className="bg-white mt-5 pl-3 py-3 cursor-pointer rounded">
-                        <Form action="/api/logout">
+                        <LogForm action="/api/logout">
                             <LogoutIcon className="mr-2 "/>
                             <input type="submit" value="ログアウト" id="logout"/>
-                        </Form>
+                        </LogForm>
                     </div>
                 </label>
                 {/*input属性じゃないためhtmlforが使えずLinkの場合修正 */}
@@ -35,4 +35,4 @@ function side(props:any){
 
     )
 }
-export default side
+export default SideBar

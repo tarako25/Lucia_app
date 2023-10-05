@@ -8,7 +8,7 @@ interface Item {
     content: string;
   }
 
-function profile_post() {
+function ProfilePost() {
 
     const [data, setData] = useState<Item[]>([]);
     const [count, setCount] = useState("")
@@ -27,7 +27,7 @@ function profile_post() {
 
     //Profile投稿取得
     const getProfileList = async() => {
-        const response = await fetch('http://localhost:3000/api/profile_list',{
+        const response = await fetch('http://localhost:3000/api/ProfilePostList',{
         method: "POST",
         headers: {
             'Content-type':'application/json',
@@ -62,4 +62,4 @@ function profile_post() {
   )
 }
 
-export default profile_post
+export default ProfilePost

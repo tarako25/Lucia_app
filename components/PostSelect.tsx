@@ -1,10 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import List from "@/components/list"
-import MyList from "@/components/mylist"
+import PostList from "@/components/PostList"
+import PostMyList from "@/components/PostMyList"
 
 
-function select(props:any) {
+function PostSelect(props:any) {
 
     const {userId, username} = props;
 
@@ -48,12 +48,12 @@ function select(props:any) {
         </div>
     </div>
     {btn === true ? (
-            <List userId={userId} username={username}/>
+            <PostList userId={userId} username={username}/>
         ) : 
-            <MyList userId={userId} username={username}/>
+            <PostMyList userId={userId} username={username}/>
     }
     </>
   )
 }
 
-export default select
+export default PostSelect

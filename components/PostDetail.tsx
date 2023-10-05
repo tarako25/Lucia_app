@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter,useSearchParams } from 'next/navigation'
 import Link from "next/link";
 
-const page = (props:any) => {
+const PostDetail = (props:any) => {
 
   const {userId} = props;
   const router = useRouter();
@@ -28,7 +28,7 @@ const page = (props:any) => {
       if(!log){
           return;
       }
-    const response = await fetch(`http://localhost:3000/api/delete?id=${post_no}`, {
+    const response = await fetch(`http://localhost:3000/api/PostDelete?id=${post_no}`, {
       method: "DELETE",
     });
     if(!response.ok){
@@ -41,7 +41,7 @@ const page = (props:any) => {
     const feychLoard = async () =>{
 
       //投稿詳細コンポーネント
-      const response = await fetch('http://localhost:3000/api/post', {
+      const response = await fetch('http://localhost:3000/api/PostDetail', {
             method: "POST",
             headers: {
               'Content-type':'application/json',
@@ -81,4 +81,4 @@ const page = (props:any) => {
   )
 }
 
-export default page
+export default PostDetail

@@ -1,8 +1,8 @@
 import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
-import Post from "@/components/post";
-import Comment from "@/components/comment";
-import Side from "@/components/side";
+import PostDetail from "@/components/PostDetail";
+import PostComment from "@/components/PostComment";
+import SideBar from "@/components/SideBar";
 import Link from "next/link";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
@@ -13,7 +13,7 @@ const Page = async () => {
 		<>
 		<div className="flex justify-around items-top">
 			<div className="w-1/4 bg-gray-500 h-[500px] rounded">
-				<Side userId={session.user.userId} username={session.user.username}/>
+				<SideBar userId={session.user.userId} username={session.user.username}/>
 			</div>
 			<div className="w-2/3 bg-gray-500 rounded">
 				<Link href="./" className='w-full'>
@@ -21,8 +21,8 @@ const Page = async () => {
 						<p className="w-11/12 mt-5 mb-3 text-white"><ArrowLeftIcon/> 投稿</p>
 					</div>
 				</Link>
-				<Post userId={session.user.userId} username={session.user.username}/>
-				<Comment userId={session.user.userId} username={session.user.username}/>
+				<PostDetail userId={session.user.userId} username={session.user.username}/>
+				<PostComment userId={session.user.userId} username={session.user.username}/>
 			</div>
 		</div>
 	</>
