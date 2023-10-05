@@ -6,45 +6,44 @@ import ChatIcon from '@mui/icons-material/Chat';
 import Pagination from '@mui/material/Pagination';
 import { PageElement } from '@/lib/pagenation';
 import toast, { Toaster } from 'react-hot-toast'
+import { Item, PostListProps, SubmitPostData } from '@/lib/types';
 
-interface Item {
-    id: number;
-    content: string;
-    comment_count: number;
-    username: string;
-    createdAt: Date;
-  }
 
-function PostList(props:any) {
+function PostList(props:PostListProps) {
 
     const {userId, username} = props;
     const [data, setData] = useState<Item[]>([]);
 
     //メッセージ送信
-    const handleSubmit = async(e:any) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const message = formData.get('msg');
-        const Data = {
-            message,
-            userId,
-            username,
-        }
-        toast.loading("投稿中..", {id:"1"})
-        const response = await fetch('http://localhost:3000/api/SubmitPost', {
-        method: "POST",
-        headers: {
-            'Content-type':'application/json',
-        },
-        body: JSON.stringify(Data)
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const message = formData.get('msg');
+    const Data:SubmitPostData = {
+        message,
+        userId,
+        username,
+    };
+
+    toast.loading('投稿中..', { id: '1' });
+    const response = await fetch('http://localhost:3000/api/SubmitPost', {
+    method: 'POST',
+    headers: {
+        'Content-type': 'application/json',
+    },
+    body: JSON.stringify(Data),
     });
-    e.target.reset();
-    if(!response.ok){
-        console.log("ロード中にエラーが発生しました");
+
+    if (!response.ok) {
+        e.currentTarget.reset();
+        toast.error("投稿に失敗しました", { id: '1' });
+        console.error('HTTPエラー:', response.statusText);
+    } else {
+        e.currentTarget.reset();
+        getList();
+        toast.success('投稿しました', { id: '1' });
     }
-    getList();
-    toast.success("投稿しました", {id:"1"})
-    }
+};
 
     //ページネーション
     const Pageitem = PageElement
@@ -53,7 +52,7 @@ function PostList(props:any) {
     const[page, setPage] = useState(1);
     const[pagecount, pageCount] = useState(1);
 
-    const handlePage = (page:any) => {
+    const handlePage = (page:number) => {
         setPage(page);
         const start_e = (page-1) * Pageitem
         setStart(start_e);
