@@ -150,7 +150,7 @@ function Profile(props:any) {
     <>
     <Toaster />
     {/* left-1/2 right-2/4 中央寄せ (position無でも可能)*/}
-    <div className='w-[1900px] h-[1000px] bg-gray-400 bg-opacity-70 fixed left-0 top-0 hidden' id="editBox">
+    <div className='w-[1900px] h-[1000px] bg-gray-400 bg-opacity-70 fixed left-0 top-0 hidden z-10' id="editBox">
         <div className='flex flex-col items-center left-1/2 right-1/2 top-1/4 bottom-1/4 fixed'>
             <div className='w-[400px] h-[300px] bg-gray-500 rounded'>
                 <div className='flex items-center justify-center w-full h-full'>
