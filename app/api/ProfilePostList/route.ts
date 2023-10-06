@@ -13,7 +13,10 @@ export async function DB(){
 export async function POST (req: Request, res:NextResponse){
     try {
         await DB();
-        const userId = await req.json();
+        const data = await req.json();
+        const userId = data.urlid
+        const Pageitem = data.Pageitem
+        const start = data.start
         const list = await prisma.message.findMany({
             where:{
                 userId: userId
@@ -21,6 +24,8 @@ export async function POST (req: Request, res:NextResponse){
             orderBy: {
                 id: 'desc'
             },
+            skip: start,
+            take: Pageitem,
         });     
         const count = await prisma.message.count({
             where:{

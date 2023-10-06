@@ -17,9 +17,19 @@ export async function POST (req: Request, res:NextResponse){
         const userId = data.userId
         const start = data.start
         const Pageitem = data.Pageitem
+        const followUsers = await prisma.follow.findMany({
+            where: {
+                userId:userId
+            }
+        })
+        let followsId = followUsers.map(user => user.followId)
+            //自分の投稿を含める
+            followsId.push(userId)
         const mylist = await prisma.message.findMany({
             where:{
-                userId: userId
+                userId: {
+                    in: followsId
+                }
             },
             orderBy: {
                 id: 'desc'
@@ -30,10 +40,11 @@ export async function POST (req: Request, res:NextResponse){
         
         const count = await prisma.message.count({
             where:{
-                userId: userId
+                userId: {
+                    in: followsId
+                }
         }
         })
-
         return NextResponse.json({ message: "Success", mylist, count}, {status: 201});
     } catch (err) {
         return NextResponse.json({ message: "Error", err}, {status: 500});

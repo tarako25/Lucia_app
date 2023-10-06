@@ -18,7 +18,7 @@ function SideBar(props:any){
                 </div>
                 <label htmlFor="logout">
                     <div className="bg-white mt-5 pl-3 py-3 cursor-pointer rounded">
-                        <LogForm action="/api/logout">
+                        <LogForm action="/api/LogOut">
                             <LogoutIcon className="mr-2 "/>
                             <input type="submit" value="ログアウト" id="logout"/>
                         </LogForm>

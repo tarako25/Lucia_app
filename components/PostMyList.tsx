@@ -57,6 +57,12 @@ interface Item {
         setStart(start_e);
     }
 
+    const Page_data = {
+        userId,
+        start,
+        Pageitem,
+    }
+    
     //ページリスト表示(自分の投稿)
     const getMyList = async() => {
         const response = await fetch('http://localhost:3000/api/PostMyList',{
@@ -82,11 +88,6 @@ interface Item {
         getMyList()
     },[start])
 
-    const Page_data = {
-        userId,
-        start,
-        Pageitem,
-    }
 
     //マウント時に更新
     useEffect(() => {

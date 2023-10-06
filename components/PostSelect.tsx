@@ -43,7 +43,7 @@ function PostSelect(props:any) {
         </div>
         <div className='mt-3 w-1/2 text-white'>
             <button className='pb-1 w-4/6' id="my" onClick={handleSelectMy}>
-                自分の投稿
+                フォロワーの投稿
             </button>
         </div>
     </div>

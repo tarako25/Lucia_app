@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import Link from "next/link";
 import ChatIcon from '@mui/icons-material/Chat';
+import Pagination from '@mui/material/Pagination';
+import { PageElement } from '@/lib/pagenation';
 
 interface Item {
     data: string;
@@ -21,18 +23,32 @@ function ProfilePost() {
         setUrlId(urlId)
     },[])
 
-    useEffect(() => {
-        getProfileList()
-    },[urlid])
+    //ページネーション
+    const Pageitem = PageElement
+
+    const [start, setStart] = useState(0);
+    const[page, setPage] = useState(1);
+    const[pagecount, pageCount] = useState(1);
+
+    const handlePage = (page:number) => {
+        setPage(page);
+        const start_e = (page-1) * Pageitem
+        setStart(start_e);
+    }
 
     //Profile投稿取得
     const getProfileList = async() => {
+        const Page_data = {
+            start,
+            Pageitem,
+            urlid,
+        }
         const response = await fetch('http://localhost:3000/api/ProfilePostList',{
         method: "POST",
         headers: {
             'Content-type':'application/json',
         },
-        body: JSON.stringify(urlid)
+        body: JSON.stringify(Page_data)
         });
         if(!response.ok){
             console.log("ロード中にエラーが発生しました");
@@ -40,7 +56,18 @@ function ProfilePost() {
         const data = await response.json();
         setData(data.list)
         setCount(data.count)
+        
+         //ページ数計算
+         const count = Math.ceil(data.count / Pageitem);
+         pageCount(count)
     }
+    //ページがsetされた時かurlidをセットされた時
+    useEffect(() => {
+        //if付けないとたまに取得できない
+        if (urlid) {
+            getProfileList()
+        }
+    },[start,urlid])
 
   return (
     <>
@@ -57,6 +84,11 @@ function ProfilePost() {
                 </Link>
             </div>
         ))}
+    </div>
+    <div className='flex items-center justify-center'>
+        <div className='mb-7'>
+            <Pagination count={pagecount} color="primary" page={page} onChange={(e, page) =>handlePage(page)}/>
+        </div>
     </div>
     </>
   )
