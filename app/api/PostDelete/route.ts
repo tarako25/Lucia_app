@@ -27,6 +27,12 @@ export async function DELETE (req: NextRequest, res:NextResponse){
                 id: parseInt(postId)
             }
         });
+        //Goodを削除
+        const good = await prisma.good.deleteMany({
+            where:{
+                post_no: parseInt(postId)
+            }
+        });
         //メッセージを削除
         const message = await prisma.message.delete({
             where:{

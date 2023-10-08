@@ -4,7 +4,8 @@ import Link from "next/link";
 import ChatIcon from '@mui/icons-material/Chat';
 import Pagination from '@mui/material/Pagination';
 import { PageElement } from '@/lib/pagenation';
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 interface Item {
     data: string;
     content: string;
@@ -69,6 +70,46 @@ function ProfilePost() {
         }
     },[start,urlid])
 
+    //Favorite
+
+    const handleGood = async(e:any, no :number) => {
+        e.preventDefault();
+        const userId = urlid
+        const PostData = {
+            userId,
+            no,
+        }
+        const response = await fetch('http://localhost:3000/api/PostGood',{
+        method: "POST",
+        headers: {
+            'Content-type':'application/json',
+        },
+        body: JSON.stringify(PostData)
+        });
+        if(!response.ok){
+            console.error('HTTPエラー:', response.statusText);
+        }
+        getProfileList();
+    }
+    const handleCancelGood = async(e:any, no :number) => {
+        e.preventDefault();
+        const PostData = {
+            urlid,
+            no,
+        }
+        const response = await fetch('http://localhost:3000/api/PostGood',{
+        method: "PUT",
+        headers: {
+            'Content-type':'application/json',
+        },
+        body: JSON.stringify(PostData)
+        });
+        if(!response.ok){
+            console.error('HTTPエラー:', response.statusText);
+        }
+        getProfileList();
+    }
+
   return (
     <>
     <div className='my-5'>
@@ -80,7 +121,15 @@ function ProfilePost() {
                         <div>{new Date(item.createdAt).toLocaleString()}</div>
                     </div>
                     <div className='my-1'>{item.content}</div>
-                    <div className='pb-3'><ChatIcon /> {item.comment_count}</div>
+                    <div className='flex items-center pb-3'>
+                        <div className='mr-3'><ChatIcon /> {item.comment_count}</div>
+                        {/*既にGoodが押されているかのチェック */}
+                        {item.good.some((goodItem:any) => goodItem.userId == urlid) ? (
+                            <button onClick = {(e) => handleCancelGood(e, item.id)}><FavoriteIcon />{item.good_count}</button>
+                        ) : (
+                            <button onClick = {(e) => handleGood(e, item.id)}><FavoriteBorderIcon />{item.good_count}</button>
+                        )}
+                    </div>
                 </Link>
             </div>
         ))}

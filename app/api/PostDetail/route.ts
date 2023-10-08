@@ -20,7 +20,8 @@ export async function POST (req: Request, res:NextResponse){
                 id: post_no
             },
             include:{
-                user:true
+                user:true,
+                good:true
             }
         });
         return NextResponse.json({ message: "Success", post}, {status: 201});

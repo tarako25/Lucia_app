@@ -21,6 +21,9 @@ export async function POST (req: Request, res:NextResponse){
             where:{
                 userId: userId
             },
+            include: {
+                good: true
+            },
             orderBy: {
                 id: 'desc'
             },

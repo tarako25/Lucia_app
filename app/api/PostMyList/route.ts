@@ -34,6 +34,9 @@ export async function POST (req: Request, res:NextResponse){
             orderBy: {
                 id: 'desc'
             },
+            include: {
+                good: true
+            },
             skip: start,
             take: Pageitem,
         });

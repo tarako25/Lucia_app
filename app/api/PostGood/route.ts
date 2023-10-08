@@ -48,7 +48,6 @@ export async function POST (req: NextRequest, res:NextResponse){
                 good_count: count
             }
         })
-        
         return NextResponse.json({ message: "Success", good, count}, {status: 201});
     } catch (err) {
         return NextResponse.json({ message: "Error", err}, {status: 500});
