@@ -6,12 +6,14 @@ import Pagination from '@mui/material/Pagination';
 import { PageElement } from '@/lib/pagenation';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+
 interface Item {
     data: string;
     content: string;
   }
 
-function ProfilePost(props:any) {
+function GoodPost(props:any) {
 
     const {userId} = props;
 
@@ -22,8 +24,10 @@ function ProfilePost(props:any) {
     //URLからプロフィールID取得
     useEffect(() => {
         const url = location.pathname;
-        const urlId = url.slice(1);
+        const urlId_good = url.slice(1);
+        const urlId = urlId_good.split('/')[0];
         setUrlId(urlId)
+        console.log(urlId)
     },[])
 
     //ページネーション
@@ -46,7 +50,7 @@ function ProfilePost(props:any) {
             Pageitem,
             urlid,
         }
-        const response = await fetch('http://localhost:3000/api/ProfilePostList',{
+        const response = await fetch('http://localhost:3000/api/GoodPost',{
         method: "POST",
         headers: {
             'Content-type':'application/json',
@@ -77,8 +81,8 @@ function ProfilePost(props:any) {
     const handleGood = async(e:any, no :number) => {
         e.preventDefault();
         const PostData = {
-            userId,
             no,
+            userId
         }
         const response = await fetch('http://localhost:3000/api/PostGood',{
         method: "POST",
@@ -114,6 +118,11 @@ function ProfilePost(props:any) {
   return (
     <>
     <div className='my-5'>
+        <Link href="./" className='w-full'>
+            <div className="flex w-full">
+                <p className="text-white flex items-center"><ArrowLeftIcon/>Goodした投稿</p>
+            </div>
+        </Link>
         {data.map((item:any) => (
             <div key ={item.id} className='bg-white my-5 px-4 text-left rounded'>
                 <Link href={`/post?no=${item.id}`}>
@@ -144,4 +153,4 @@ function ProfilePost(props:any) {
   )
 }
 
-export default ProfilePost
+export default GoodPost

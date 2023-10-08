@@ -1,8 +1,7 @@
 import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
 import SideBar from "@/components/SideBar";
-import Profile from "@/components/Profile";
-import ProfilePost from "@/components/ProfilePost";
+import GoodPost from "@/components/GoodPost";
 
 const Page = async () => {
 	const session = await getPageSession();
@@ -16,8 +15,7 @@ const Page = async () => {
 			<div className="w-2/3 bg-gray-500 rounded">
 				<div className='flex justify-center flex-col items-center'>
 					<div className='w-11/12'>
-						<Profile userId={session.user.userId}/>
-						<ProfilePost userId={session.user.userId}/>
+						<GoodPost userId={session.user.userId}/>
 					</div>
 				</div>
 			</div>

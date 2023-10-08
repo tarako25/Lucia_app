@@ -173,8 +173,8 @@ function Profile(props:any) {
     </div>
     <div className='flex flex-col items-center'>
         <Link href="./" className='w-full'>
-            <div className="flex justify-start w-full">
-                <p className="mt-5 mb-3 text-white"><ArrowLeftIcon/>プロフィール</p>
+            <div className="flex w-full">
+                <p className="mt-5 mb-4 text-white flex items-center"><ArrowLeftIcon/>プロフィール</p>
             </div>
         </Link>
         <div className='w-full px-4 py-5 rounded bg-white border'>

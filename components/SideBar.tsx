@@ -3,6 +3,7 @@ import Link from "next/link";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function SideBar(props:any){
 
@@ -25,9 +26,13 @@ function SideBar(props:any){
                     </div>
                 </label>
                 {/*input属性じゃないためhtmlforが使えずLinkの場合修正 */}
-                <Link href={userId} className="bg-white mt-5 pl-3 py-3 cursor-pointer rounded block">
+                <Link href={`/${userId}`} className="bg-white mt-5 pl-3 py-3 cursor-pointer rounded block">
                     <ManageAccountsIcon className="mr-2 "/>
                     プロフィール
+                </Link>
+                <Link href={`/${userId}/good`} className="bg-white mt-5 pl-3 py-3 cursor-pointer rounded block">
+                    <FavoriteIcon className="mr-2"/>
+                    Goodした投稿
                 </Link>
             </div>
         </div>
