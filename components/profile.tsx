@@ -119,7 +119,7 @@ function Profile(props:any) {
             userId,
         }
         const response = await fetch('http://localhost:3000/api/Follow', {
-            method: "PUT",
+            method: "POST",
             body: JSON.stringify(FollowData),
         });
         if(response.ok){
@@ -134,7 +134,7 @@ function Profile(props:any) {
     //フォロー解除
     const handleUnFollow = async() => {
         const response = await fetch('http://localhost:3000/api/Follow', {
-            method: "POST",
+            method: "PUT",
             body: JSON.stringify(followed),
         });
         if(response.ok){

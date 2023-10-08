@@ -19,10 +19,13 @@ export async function POST (req: NextRequest, res:NextResponse){
             orderBy: {
                 id: 'desc'
             },
+            include: {
+                good: true
+            },
             skip: start,
             take: Pageitem,
+            
         });
-        
         const count = await prisma.message.count()
 
         return NextResponse.json({ message: "Success", list, count}, {status: 201});

@@ -1,12 +1,14 @@
 "use client";
 
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import ChatIcon from '@mui/icons-material/Chat';
 import Pagination from '@mui/material/Pagination';
 import { PageElement } from '@/lib/pagenation';
 import toast, { Toaster } from 'react-hot-toast'
 import { Item, PostListProps} from '@/lib/types';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 function PostList(props:PostListProps) {
@@ -80,6 +82,7 @@ function PostList(props:PostListProps) {
         //ページ数計算
         const count = Math.ceil(data.count / Pageitem);
         pageCount(count)
+        console.log(data.list)
     }
 
     //ページがsetされた時
@@ -92,6 +95,44 @@ function PostList(props:PostListProps) {
         getList();
     },[]);
 
+    //Favorite
+
+    const handleGood = async(e:any, no :number) => {
+        e.preventDefault();
+        const PostData = {
+            userId,
+            no,
+        }
+        const response = await fetch('http://localhost:3000/api/PostGood',{
+        method: "POST",
+        headers: {
+            'Content-type':'application/json',
+        },
+        body: JSON.stringify(PostData)
+        });
+        if(!response.ok){
+            console.error('HTTPエラー:', response.statusText);
+        }
+        getList();
+    }
+    const handleCancelGood = async(e:any, no :number) => {
+        e.preventDefault();
+        const PostData = {
+            userId,
+            no,
+        }
+        const response = await fetch('http://localhost:3000/api/PostGood',{
+        method: "PUT",
+        headers: {
+            'Content-type':'application/json',
+        },
+        body: JSON.stringify(PostData)
+        });
+        if(!response.ok){
+            console.error('HTTPエラー:', response.statusText);
+        }
+        getList();
+    }
 
   return (
     <>
@@ -109,14 +150,23 @@ function PostList(props:PostListProps) {
     </form>
     <div className='my-5'>
         {data.map((item:any) => (
-            <div key ={item.id} className='bg-white my-5 px-4 text-left rounded'>
+            <div key ={item.id} id={item.id} className='bg-white my-5 px-4 text-left rounded'>
                 <Link href={`/post?no=${item.id}`}>
                     <div className='flex justify-between items-center pt-3'>
                         <div className='font-bold'>{item.username}</div>
                         <div>{new Date(item.createdAt).toLocaleString()}</div>
                     </div>
                     <div className='my-1'>{item.content}</div>
-                    <div className='pb-3'><ChatIcon /> {item.comment_count}</div>
+                    
+                    <div className='flex items-center pb-3'>
+                        <div className='mr-3'><ChatIcon /> {item.comment_count}</div>
+                        {/*既にGoodが押されているかのチェック */}
+                        {item.good.some((goodItem:any) => goodItem.userId == userId) ? (
+                            <button onClick = {(e) => handleCancelGood(e, item.id)}><FavoriteIcon />{item.good_count}</button>
+                        ) : (
+                            <button onClick = {(e) => handleGood(e, item.id)}><FavoriteBorderIcon />{item.good_count}</button>
+                        )}
+                    </div>
                 </Link>
             </div>
         ))}

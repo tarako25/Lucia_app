@@ -23,6 +23,7 @@ function PostSelect(props:any) {
     const my = document.getElementById("my")
     
     const effect = "border-b-2"
+
     if(all && my){
         if(btn === true){
             my.classList.remove(effect)
@@ -36,12 +37,12 @@ function PostSelect(props:any) {
   return (
     <>
     <div className='flex  justify-between'>
-        <div className='mt-3 w-1/2 text-white'>
+        <div className='mt-3 w-1/2 text-white transition-all'>
             <button className='pb-1 w-4/6' id="all" onClick={handleSelectAll}>
                 全ての投稿
             </button>
         </div>
-        <div className='mt-3 w-1/2 text-white'>
+        <div className='mt-3 w-1/2 text-white transition-all'>
             <button className='pb-1 w-4/6' id="my" onClick={handleSelectMy}>
                 フォロワーの投稿
             </button>

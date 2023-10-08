@@ -20,6 +20,7 @@ model User {
   comment Comment[]
   follow Follow[]
   follower Follower[]
+  good Good[]
 }
 
 model Session {
@@ -47,9 +48,11 @@ model Message {
   username String
   content String
   comment_count Int @default(0)
+  good_count Int @default(0)
   createdAt DateTime
   user    User    @relation(fields: [userId], references: [id])
   comment Comment[]
+  good Good[]
 
   @@index([userId])
 }
@@ -82,5 +85,14 @@ model Follower {
   followername String
   createdAt DateTime
   follow    Follow    @relation(fields: [follow_no], references: [no])
+  user    User    @relation(fields: [userId], references: [id])
+}
+
+model Good {
+  no       Int @id @default(autoincrement())
+  post_no Int
+  userId  String
+  createdAt DateTime
+  message      Message    @relation(fields: [post_no], references: [id])
   user    User    @relation(fields: [userId], references: [id])
 }

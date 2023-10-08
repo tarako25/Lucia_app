@@ -10,7 +10,7 @@ export async function DB(){
     }
 }
 
-export async function PUT (req: Request, res:NextResponse){
+export async function POST (req: Request, res:NextResponse){
     try {
         await DB();
         const data = await req.json();
@@ -65,7 +65,7 @@ export async function PUT (req: Request, res:NextResponse){
     }
 }
 
-export async function POST (req: Request, res:NextResponse){
+export async function PUT (req: Request, res:NextResponse){
     try {
         await DB();
         const no = await req.json();
