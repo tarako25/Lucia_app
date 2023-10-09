@@ -20,7 +20,9 @@ export const auth = lucia({
 	},
 	getUserAttributes: (data) => {
 		return {
-			username: data.username
+			//よく分からん
+			username: data.username,
+			delete_flg: data.delete_flg
 		};
 	}
 });

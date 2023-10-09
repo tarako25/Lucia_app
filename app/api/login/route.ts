@@ -51,6 +51,16 @@ export const POST = async (request: NextRequest) => {
 			cookies
 		});
 		authRequest.setSession(session);
+		if (session.user.delete_flg == 1) {
+			return NextResponse.json(
+				{
+					error: "アカウントは現在停止しています。問い合わせフォームまで問い合わせ下さい"
+				},
+				{
+					status: 400
+				}
+			);
+		}
 		return new Response(null, {
 			status: 302,
 			headers: {
@@ -67,7 +77,7 @@ export const POST = async (request: NextRequest) => {
 			// or invalid password
 			return NextResponse.json(
 				{
-					error: "Incorrect username or password"
+					error: "ユーザーネームかパスワードが正しくありません"
 				},
 				{
 					status: 400
@@ -76,7 +86,7 @@ export const POST = async (request: NextRequest) => {
 		}
 		return NextResponse.json(
 			{
-				error: "An unknown error occurred"
+				error: "予期せぬエラー"
 			},
 			{
 				status: 500

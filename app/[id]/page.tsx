@@ -6,7 +6,11 @@ import ProfilePost from "@/components/ProfilePost";
 
 const Page = async () => {
 	const session = await getPageSession();
-	if (!session) redirect("/login");
+	if (!session) {
+		redirect("/login");
+	} else if(session.user.delete_flg == 1){
+		redirect("/login");
+	}
 	return (
 		<>
 		<div className="flex justify-around  items-top mb-5">

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Page = async () => {
 	const session = await getPageSession();
-	if (session) redirect("/");
+	if (session && session.user.delete_flg == 0) redirect("/");
 	return (
 		<>
 			<h1>Sign up</h1>
