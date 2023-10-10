@@ -2,17 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 import prisma from "@/lib/prisma";
 
-export async function DB() {
-  try {
-    await prisma.$connect();
-  } catch (error) {
-    return Error("DB接続に失敗しました");
-  }
-}
-
 export async function POST(req: Request, res: NextResponse) {
   try {
-    await DB();
     const data = await req.json();
     const msg = data.message;
     const user_id = data.userId;

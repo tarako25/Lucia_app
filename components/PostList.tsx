@@ -5,7 +5,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Pagination from "@mui/material/Pagination";
 import Link from "next/link";
-import React, { useEffect, useRef,useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 import { PageElement } from "@/lib/pagenation";
@@ -27,7 +27,7 @@ function PostList(props: PostListProps) {
     };
 
     toast.loading("投稿中..", { id: "1" });
-    const response = await fetch("http://localhost:3000/api/SubmitPost", {
+    const response = await fetch("api/SubmitPost", {
       body: JSON.stringify(Data),
       headers: {
         "Content-type": "application/json",
@@ -65,7 +65,7 @@ function PostList(props: PostListProps) {
   };
   //ページリスト表示(全ての投稿)
   const getList = async () => {
-    const response = await fetch("http://localhost:3000/api/PostList", {
+    const response = await fetch("api/PostList", {
       body: JSON.stringify(Page_data),
       headers: {
         "Content-type": "application/json",
@@ -102,7 +102,7 @@ function PostList(props: PostListProps) {
       no,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/PostGood", {
+    const response = await fetch("api/PostGood", {
       body: JSON.stringify(PostData),
       headers: {
         "Content-type": "application/json",
@@ -120,7 +120,7 @@ function PostList(props: PostListProps) {
       no,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/PostGood", {
+    const response = await fetch("api/PostGood", {
       body: JSON.stringify(PostData),
       headers: {
         "Content-type": "application/json",
@@ -170,7 +170,7 @@ function PostList(props: PostListProps) {
                 </div>
                 {/*既にGoodが押されているかのチェック */}
                 {item.good.some(
-                  (goodItem: any) => goodItem.userId == userId,
+                  (goodItem: any) => goodItem.userId == userId
                 ) ? (
                   <button onClick={(e) => handleCancelGood(e, item.id)}>
                     <FavoriteIcon />

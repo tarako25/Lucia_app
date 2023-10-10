@@ -35,16 +35,13 @@ const PostComment = (props: any) => {
       username,
     };
     toast.loading("投稿中..", { id: "1" });
-    const response = await fetch(
-      "http://localhost:3000/api/SubmitPostComment",
-      {
-        body: JSON.stringify(Data),
-        headers: {
-          "Content-type": "application/json",
-        },
-        method: "POST",
+    const response = await fetch("api/SubmitPostComment", {
+      body: JSON.stringify(Data),
+      headers: {
+        "Content-type": "application/json",
       },
-    );
+      method: "POST",
+    });
     e.target.reset();
     if (!response.ok) {
       toast.error("投稿に失敗しました", { id: "1" });
@@ -75,7 +72,7 @@ const PostComment = (props: any) => {
 
   //コメントを取得
   const getComent = async () => {
-    const response = await fetch("http://localhost:3000/api/PostComment", {
+    const response = await fetch("api/PostComment", {
       body: JSON.stringify(Page_data),
       headers: {
         "Content-type": "application/json",

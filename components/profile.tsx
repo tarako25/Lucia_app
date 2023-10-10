@@ -40,7 +40,7 @@ function Profile(props: any) {
       Id,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/UserData", {
+    const response = await fetch("api/UserData", {
       body: JSON.stringify(userData),
       headers: {
         "Content-type": "application/json",
@@ -86,7 +86,7 @@ function Profile(props: any) {
       pr,
       urlId,
     };
-    const response = await fetch("http://localhost:3000/api/EditProfile", {
+    const response = await fetch("api/EditProfile", {
       body: JSON.stringify(Data),
       method: "PUT",
       redirect: "manual",
@@ -115,7 +115,7 @@ function Profile(props: any) {
       followName,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/Follow", {
+    const response = await fetch("api/Follow", {
       body: JSON.stringify(FollowData),
       method: "POST",
     });
@@ -130,7 +130,7 @@ function Profile(props: any) {
   };
   //フォロー解除
   const handleUnFollow = async () => {
-    const response = await fetch("http://localhost:3000/api/Follow", {
+    const response = await fetch("api/Follow", {
       body: JSON.stringify(followed),
       method: "PUT",
     });

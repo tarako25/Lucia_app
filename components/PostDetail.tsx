@@ -4,7 +4,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const PostDetail = (props: any) => {
   const { userId } = props;
@@ -35,12 +35,9 @@ const PostDetail = (props: any) => {
     if (!log) {
       return;
     }
-    const response = await fetch(
-      `http://localhost:3000/api/PostDelete?id=${post_no}`,
-      {
-        method: "DELETE",
-      },
-    );
+    const response = await fetch(`api/PostDelete?id=${post_no}`, {
+      method: "DELETE",
+    });
     if (!response.ok) {
       console.error("HTTPエラー:", response.statusText);
     } else {
@@ -50,7 +47,7 @@ const PostDetail = (props: any) => {
 
   const fetchLoard = async () => {
     //投稿詳細コンポーネント
-    const response = await fetch("http://localhost:3000/api/PostDetail", {
+    const response = await fetch("api/PostDetail", {
       body: JSON.stringify(post_no),
       headers: {
         "Content-type": "application/json",
@@ -76,7 +73,7 @@ const PostDetail = (props: any) => {
       no,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/PostGood", {
+    const response = await fetch("api/PostGood", {
       body: JSON.stringify(PostData),
       headers: {
         "Content-type": "application/json",
@@ -94,7 +91,7 @@ const PostDetail = (props: any) => {
       no,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/PostGood", {
+    const response = await fetch("api/PostGood", {
       body: JSON.stringify(PostData),
       headers: {
         "Content-type": "application/json",

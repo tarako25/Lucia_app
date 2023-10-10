@@ -50,7 +50,7 @@ function GoodPost(props: any) {
       start,
       urlid,
     };
-    const response = await fetch("http://localhost:3000/api/GoodPost", {
+    const response = await fetch("api/GoodPost", {
       body: JSON.stringify(Page_data),
       headers: {
         "Content-type": "application/json",
@@ -84,7 +84,7 @@ function GoodPost(props: any) {
       no,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/PostGood", {
+    const response = await fetch("api/PostGood", {
       body: JSON.stringify(PostData),
       headers: {
         "Content-type": "application/json",
@@ -102,7 +102,7 @@ function GoodPost(props: any) {
       no,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/PostGood", {
+    const response = await fetch("api/PostGood", {
       body: JSON.stringify(PostData),
       headers: {
         "Content-type": "application/json",
@@ -140,7 +140,7 @@ function GoodPost(props: any) {
                 </div>
                 {/*既にGoodが押されているかのチェック */}
                 {item.good.some(
-                  (goodItem: any) => goodItem.userId == userId,
+                  (goodItem: any) => goodItem.userId == userId
                 ) ? (
                   <button onClick={(e) => handleCancelGood(e, item.id)}>
                     <FavoriteIcon />

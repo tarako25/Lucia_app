@@ -25,7 +25,7 @@ function PostMyList(props: PostListProps) {
       username,
     };
     toast.loading("投稿中..", { id: "1" });
-    const response = await fetch("http://localhost:3000/api/SubmitPost", {
+    const response = await fetch("api/SubmitPost", {
       body: JSON.stringify(Data),
       headers: {
         "Content-type": "application/json",
@@ -61,7 +61,7 @@ function PostMyList(props: PostListProps) {
 
   //ページリスト表示(自分の投稿)
   const getMyList = async () => {
-    const response = await fetch("http://localhost:3000/api/PostMyList", {
+    const response = await fetch("api/PostMyList", {
       body: JSON.stringify(Page_data),
       headers: {
         "Content-type": "application/json",
@@ -97,7 +97,7 @@ function PostMyList(props: PostListProps) {
       no,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/PostGood", {
+    const response = await fetch("api/PostGood", {
       body: JSON.stringify(PostData),
       headers: {
         "Content-type": "application/json",
@@ -115,7 +115,7 @@ function PostMyList(props: PostListProps) {
       no,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/PostGood", {
+    const response = await fetch("api/PostGood", {
       body: JSON.stringify(PostData),
       headers: {
         "Content-type": "application/json",
@@ -165,7 +165,7 @@ function PostMyList(props: PostListProps) {
                 </div>
                 {/*既にGoodが押されているかのチェック */}
                 {item.good.some(
-                  (goodItem: any) => goodItem.userId == userId,
+                  (goodItem: any) => goodItem.userId == userId
                 ) ? (
                   <button onClick={(e) => handleCancelGood(e, item.id)}>
                     <FavoriteIcon />

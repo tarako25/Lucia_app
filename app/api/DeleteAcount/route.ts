@@ -5,14 +5,6 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth/lucia";
 import prisma from "@/lib/prisma";
 
-export async function DB() {
-  try {
-    await prisma.$connect();
-  } catch (error) {
-    return Error("DB接続に失敗しました");
-  }
-}
-
 export const POST = async (request: NextRequest, res: NextResponse) => {
   const authRequest = auth.handleRequest({ cookies, request });
   // check if user is authenticated
@@ -25,7 +17,6 @@ export const POST = async (request: NextRequest, res: NextResponse) => {
   // make sure to invalidate the current session!
   await auth.invalidateSession(session.sessionId);
   try {
-    await DB();
     const userId = session.user.userId;
     await prisma.user.update({
       data: {

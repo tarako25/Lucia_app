@@ -47,7 +47,7 @@ function ProfilePost(props: any) {
       start,
       urlid,
     };
-    const response = await fetch("http://localhost:3000/api/ProfilePostList", {
+    const response = await fetch("api/ProfilePostList", {
       body: JSON.stringify(Page_data),
       headers: {
         "Content-type": "application/json",
@@ -81,7 +81,7 @@ function ProfilePost(props: any) {
       no,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/PostGood", {
+    const response = await fetch("api/PostGood", {
       body: JSON.stringify(PostData),
       headers: {
         "Content-type": "application/json",
@@ -99,7 +99,7 @@ function ProfilePost(props: any) {
       no,
       userId,
     };
-    const response = await fetch("http://localhost:3000/api/PostGood", {
+    const response = await fetch("api/PostGood", {
       body: JSON.stringify(PostData),
       headers: {
         "Content-type": "application/json",
@@ -129,7 +129,7 @@ function ProfilePost(props: any) {
                 </div>
                 {/*既にGoodが押されているかのチェック */}
                 {item.good.some(
-                  (goodItem: any) => goodItem.userId == userId,
+                  (goodItem: any) => goodItem.userId == userId
                 ) ? (
                   <button onClick={(e) => handleCancelGood(e, item.id)}>
                     <FavoriteIcon />
