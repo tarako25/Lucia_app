@@ -1,41 +1,47 @@
 {
-	"name": "username-and-password",
-	"description": "Username & password example with Lucia and Next.js App Router",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
-	},
-	"dependencies": {
-		"@emotion/react": "^11.11.1",
-		"@emotion/styled": "^11.11.0",
-		"@lucia-auth/adapter-prisma": "^3.0.1",
-		"@lucia-auth/adapter-sqlite": "latest",
-		"@mui/icons-material": "^5.14.9",
-		"@mui/lab": "^5.0.0-alpha.145",
-		"@mui/material": "^5.14.10",
-		"@prisma/client": "^5.3.1",
-		"@types/node": "20.3.3",
-		"@types/react": "18.2.14",
-		"@types/react-dom": "18.2.6",
-		"better-sqlite3": "^8.4.0",
-		"eslint": "8.44.0",
-		"eslint-config-next": "13.4.7",
-		"lucia": "^2.4.2",
-		"next": "13.4.7",
-		"prisma": "^5.2.0",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
-		"react-hot-toast": "^2.4.1",
-		"typescript": "5.1.6"
-	},
-	"devDependencies": {
-		"@types/better-sqlite3": "^7.6.3",
-		"autoprefixer": "^10.4.15",
-		"postcss": "^8.4.30",
-		"tailwindcss": "^3.3.3"
-	}
+  "name": "username-and-password",
+  "description": "Username & password example with Lucia and Next.js App Router",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "prettier --write . && eslint --cache --fix ."
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@lucia-auth/adapter-prisma": "^3.0.1",
+    "@lucia-auth/adapter-sqlite": "latest",
+    "@mui/icons-material": "^5.14.9",
+    "@mui/lab": "^5.0.0-alpha.145",
+    "@mui/material": "^5.14.10",
+    "@prisma/client": "^5.3.1",
+    "@types/node": "20.3.3",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "better-sqlite3": "^8.4.0",
+    "eslint": "8.44.0",
+    "eslint-config-next": "13.4.7",
+    "lucia": "^2.4.2",
+    "next": "13.4.7",
+    "prisma": "^5.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.3",
+    "autoprefixer": "^10.4.15",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-sort-keys-custom-order": "^1.0.5",
+    "eslint-plugin-tailwindcss": "^3.13.0",
+    "postcss": "^8.4.30",
+    "prettier": "^3.0.3",
+    "tailwindcss": "^3.3.3"
+  }
 }

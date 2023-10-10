@@ -1,63 +1,64 @@
-import  prisma  from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function DB(){
-    try {
-        await prisma.$connect();
-    } catch (error) {
-        return Error("DB接続に失敗しました")
-    }
+import prisma from "@/lib/prisma";
+
+export async function DB() {
+  try {
+    await prisma.$connect();
+  } catch (error) {
+    return Error("DB接続に失敗しました");
+  }
 }
 
-export async function POST (req: Request, res:NextResponse){
-    try {
-        await DB();
-        const data = await req.json();
-        const msg = data.message
-        const user_id = data.userId
-        const post_no = data.post_no
-        const username = data.username
-        //日付作成
-        const now = new Date();
-        //ISO形式に変換
-        const nowISO8601 = now.toISOString();
-        const comment = await prisma.comment.create({
-            data: {
-                content: msg,
-                //ISO形式のみ(保存時はISOで＋1hなってるいるがフロントで変換している)
-                createdAt: nowISO8601,
-                username: username,
-                user:{
-                    connect: {
-                        id: user_id // ここで関連するユーザーのIDを指定
-                    }
-                }, 
-                message:{
-                    connect: {
-                        id: Number(post_no) // ここで関連するユーザーのIDを指定
-                    }
-                }, 
-            }
-        });
-        const count = await prisma.comment.count({
-            where: {
-                id: Number(post_no)
-            }
-        })
-        //使ってる
-        const update = await prisma.message.update({
-            where: {
-                id: Number(post_no)
-            },
-            data: {
-                comment_count: count
-            }
-        })
-        return NextResponse.json({ message: "Success", comment}, {status: 201});
-    } catch (err) {
-        console.log(err)
-        return NextResponse.json({ message: "Error", err}, {status: 500});
-    } finally {
-        await prisma.$disconnect();
-    }
+export async function POST(req: Request, res: NextResponse) {
+  try {
+    await DB();
+    const data = await req.json();
+    const msg = data.message;
+    const user_id = data.userId;
+    const post_no = data.post_no;
+    const username = data.username;
+    //日付作成
+    const now = new Date();
+    //ISO形式に変換
+    const nowISO8601 = now.toISOString();
+    const comment = await prisma.comment.create({
+      data: {
+        content: msg,
+        //ISO形式のみ(保存時はISOで＋1hなってるいるがフロントで変換している)
+        createdAt: nowISO8601,
+        message: {
+          connect: {
+            id: Number(post_no), // ここで関連するユーザーのIDを指定
+          },
+        },
+        user: {
+          connect: {
+            id: user_id, // ここで関連するユーザーのIDを指定
+          },
+        },
+        username: username,
+      },
+    });
+    const count = await prisma.comment.count({
+      where: {
+        id: Number(post_no),
+      },
+    });
+    //使ってる
+    const update = await prisma.message.update({
+      data: {
+        comment_count: count,
+      },
+      where: {
+        id: Number(post_no),
+      },
+    });
+    return NextResponse.json({ comment, message: "Success" }, { status: 201 });
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({ err, message: "Error" }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
+  }
 }

@@ -1,13 +1,12 @@
-export  interface Item {
-            id: number;
-            content: string;
-            comment_count: number;
-            username: string;
-            createdAt: Date;
-        }
+export interface Item {
+  id: number;
+  comment_count: number;
+  content: string;
+  createdAt: Date;
+  username: string;
+}
 
-export  interface PostListProps {
-            userId: string;
-            username: string;
-        }
-    
+export interface PostListProps {
+  userId: string;
+  username: string;
+}
