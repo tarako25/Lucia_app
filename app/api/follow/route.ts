@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "../../../lib/prisma";
+import prisma from "@/lib/prisma";
 
 export async function DB() {
   try {
@@ -58,7 +58,7 @@ export async function POST(req: Request, res: NextResponse) {
     });
     return NextResponse.json(
       { follow, follower, message: "Success" },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (err) {
     console.log(err);
@@ -89,7 +89,7 @@ export async function PUT(req: Request, res: NextResponse) {
 
     return NextResponse.json(
       { message: "Success", unfollow, unfollower },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (err) {
     console.log(err);

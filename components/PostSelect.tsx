@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import PostList from "../components/PostList";
-import PostMyList from "../components/PostMyList";
+import PostList from "@/components/PostList";
+import PostMyList from "@/components/PostMyList";
 
 function PostSelect(props: any) {
   const { userId, username } = props;

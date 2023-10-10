@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
-import { getPageSession } from "../auth/lucia";
-import PostSelect from "../components/PostSelect";
-import SideBar from "../components/SideBar";
+import { getPageSession } from "@/auth/lucia";
+import PostSelect from "@/components/PostSelect";
+import SideBar from "@/components/SideBar";
 
 const Page = async () => {
   const session = await getPageSession();

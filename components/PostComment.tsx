@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-import { PageElement } from "../lib/pagenation";
+import { PageElement } from "@/lib/pagenation";
 
 interface Item {
   id: number;
