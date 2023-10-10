@@ -2,8 +2,8 @@ import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth/lucia";
-import prisma from "@/lib/prisma";
+import { auth } from "../../../auth/lucia";
+import prisma from "../../../lib/prisma";
 
 export const POST = async (request: NextRequest, res: NextResponse) => {
   const authRequest = auth.handleRequest({ cookies, request });

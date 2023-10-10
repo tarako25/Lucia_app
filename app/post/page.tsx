@@ -2,10 +2,10 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { getPageSession } from "@/auth/lucia";
-import PostComment from "@/components/PostComment";
-import PostDetail from "@/components/PostDetail";
-import SideBar from "@/components/SideBar";
+import { getPageSession } from "../../auth/lucia";
+import PostComment from "../../components/PostComment";
+import PostDetail from "../../components/PostDetail";
+import SideBar from "../../components/SideBar";
 
 const Page = async () => {
   const session = await getPageSession();

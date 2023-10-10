@@ -7,8 +7,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-import { PageElement } from "@/lib/pagenation";
-import { Item, PostListProps } from "@/lib/types";
+import { PageElement } from "../lib/pagenation";
+import { Item, PostListProps } from "../lib/types";
 
 function PostMyList(props: PostListProps) {
   const { userId, username } = props;

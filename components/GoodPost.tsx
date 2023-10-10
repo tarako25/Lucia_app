@@ -7,7 +7,7 @@ import Pagination from "@mui/material/Pagination";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-import { PageElement } from "@/lib/pagenation";
+import { PageElement } from "../lib/pagenation";
 
 interface Item {
   content: string;

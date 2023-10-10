@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth/lucia";
+import { auth } from "../../../auth/lucia";
 
 export const POST = async (request: NextRequest) => {
   const formData = await request.formData();
@@ -21,7 +21,7 @@ export const POST = async (request: NextRequest) => {
       },
       {
         status: 400,
-      },
+      }
     );
   }
   if (
@@ -35,7 +35,7 @@ export const POST = async (request: NextRequest) => {
       },
       {
         status: 400,
-      },
+      }
     );
   }
   try {
@@ -59,7 +59,7 @@ export const POST = async (request: NextRequest) => {
         },
         {
           status: 400,
-        },
+        }
       );
     }
     return new Response(null, {
@@ -82,7 +82,7 @@ export const POST = async (request: NextRequest) => {
         },
         {
           status: 400,
-        },
+        }
       );
     }
     return NextResponse.json(
@@ -91,7 +91,7 @@ export const POST = async (request: NextRequest) => {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 };

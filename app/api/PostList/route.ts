@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "@/lib/prisma";
+import prisma from "../../../lib/prisma";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(
       { count, list, message: "Success" },
-      { status: 201 },
+      { status: 201 }
     );
   } catch (err) {
     console.log("エラー", err);

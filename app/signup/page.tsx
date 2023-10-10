@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { getPageSession } from "@/auth/lucia";
-import LogForm from "@/components/LogForm";
+import { getPageSession } from "../../auth/lucia";
+import LogForm from "../../components/LogForm";
 
 const Page = async () => {
   const session = await getPageSession();

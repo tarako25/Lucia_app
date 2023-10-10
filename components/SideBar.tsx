@@ -6,7 +6,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import Link from "next/link";
 
-import LogForm from "@/components/LogForm";
+import LogForm from "../components/LogForm";
 
 function SideBar(props: any) {
   const { userId, username } = props;

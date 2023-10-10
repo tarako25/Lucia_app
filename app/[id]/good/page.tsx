@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
-import { getPageSession } from "@/auth/lucia";
-import GoodPost from "@/components/GoodPost";
-import SideBar from "@/components/SideBar";
+import { getPageSession } from "../../../auth/lucia";
+import GoodPost from "../../../components/GoodPost";
+import SideBar from "../../../components/SideBar";
 
 const Page = async () => {
   const session = await getPageSession();
