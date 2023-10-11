@@ -10,3 +10,8 @@ export interface PostListProps {
   userId: string;
   username: string;
 }
+
+export interface Example {
+  userId: string;
+  username: string;
+}
