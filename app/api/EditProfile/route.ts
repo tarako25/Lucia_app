@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "@/lib/prisma";
+import prisma_C from "@/lib/prisma";
 
 export async function PUT(req: Request, res: NextResponse) {
   try {
@@ -8,7 +8,7 @@ export async function PUT(req: Request, res: NextResponse) {
     const username = data.name;
     const production = data.pr;
     const userId = data.urlId;
-    const user = await prisma.user.update({
+    const user = await prisma_C.user.update({
       data: {
         production: production,
         username: username,
@@ -21,6 +21,6 @@ export async function PUT(req: Request, res: NextResponse) {
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
   }
 }

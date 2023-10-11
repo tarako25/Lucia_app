@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "@/lib/prisma";
+import prisma_C from "@/lib/prisma";
 
 export async function POST(req: Request, res: NextResponse) {
   try {
@@ -9,7 +9,7 @@ export async function POST(req: Request, res: NextResponse) {
     const start = data.start;
     const Pageitem = data.Pageitem;
 
-    const goodpost = await prisma.user.findFirst({
+    const goodpost = await prisma_C.user.findFirst({
       include: {
         good: true,
       },
@@ -19,7 +19,7 @@ export async function POST(req: Request, res: NextResponse) {
     });
     const goodPosts = goodpost?.good.map((user) => user.post_no);
 
-    const list = await prisma.message.findMany({
+    const list = await prisma_C.message.findMany({
       include: {
         good: true,
       },
@@ -35,7 +35,7 @@ export async function POST(req: Request, res: NextResponse) {
       },
     });
 
-    const count = await prisma.message.count({
+    const count = await prisma_C.message.count({
       where: {
         userId: userId,
       },
@@ -47,6 +47,6 @@ export async function POST(req: Request, res: NextResponse) {
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
   }
 }

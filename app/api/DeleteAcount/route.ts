@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 import { auth } from "@/auth/lucia";
-import prisma from "@/lib/prisma";
+import prisma_C from "@/lib/prisma";
 
 export const POST = async (request: NextRequest, res: NextResponse) => {
   const authRequest = auth.handleRequest({ cookies, request });
@@ -18,7 +18,7 @@ export const POST = async (request: NextRequest, res: NextResponse) => {
   await auth.invalidateSession(session.sessionId);
   try {
     const userId = session.user.userId;
-    await prisma.user.update({
+    await prisma_C.user.update({
       data: {
         delete_flg: 1,
       },
@@ -30,7 +30,7 @@ export const POST = async (request: NextRequest, res: NextResponse) => {
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
 
     // delete session cookie
     authRequest.setSession(null);

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "@/lib/prisma";
+import prisma_C from "@/lib/prisma";
 
 export async function DELETE(req: NextRequest, res: NextResponse) {
   try {
@@ -14,19 +14,19 @@ export async function DELETE(req: NextRequest, res: NextResponse) {
       );
     }
     //コメントを削除
-    const comment = await prisma.comment.deleteMany({
+    const comment = await prisma_C.comment.deleteMany({
       where: {
         id: parseInt(postId),
       },
     });
     //Goodを削除
-    const good = await prisma.good.deleteMany({
+    const good = await prisma_C.good.deleteMany({
       where: {
         post_no: parseInt(postId),
       },
     });
     //メッセージを削除
-    const message = await prisma.message.delete({
+    const message = await prisma_C.message.delete({
       where: {
         id: parseInt(postId),
       },
@@ -36,6 +36,6 @@ export async function DELETE(req: NextRequest, res: NextResponse) {
     console.log(err);
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
   }
 }

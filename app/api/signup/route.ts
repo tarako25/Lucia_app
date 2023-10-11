@@ -22,7 +22,7 @@ export const POST = async (request: NextRequest) => {
       },
       {
         status: 400,
-      },
+      }
     );
   }
   if (
@@ -36,13 +36,14 @@ export const POST = async (request: NextRequest) => {
       },
       {
         status: 400,
-      },
+      }
     );
   }
 
   try {
     const user = await auth.createUser({
       attributes: {
+        delete_flg: 0,
         username,
       },
       key: {
@@ -75,7 +76,7 @@ export const POST = async (request: NextRequest) => {
         },
         {
           status: 400,
-        },
+        }
       );
     }
 
@@ -85,7 +86,7 @@ export const POST = async (request: NextRequest) => {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 };

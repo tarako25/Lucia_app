@@ -1,14 +1,12 @@
 import { prisma } from "@lucia-auth/adapter-prisma";
-import { PrismaClient } from "@prisma/client";
+import prisma_C from "@/lib/prisma";
 import { lucia } from "lucia";
 import { nextjs } from "lucia/middleware";
 import { cookies } from "next/headers";
 import { cache } from "react";
 
-const client = new PrismaClient();
-
 export const auth = lucia({
-  adapter: prisma(client, {
+  adapter: prisma(prisma_C, {
     key: "key", // model Key {}
     session: "session", // model Session {}
     user: "user", // model User {}
@@ -17,7 +15,6 @@ export const auth = lucia({
   getUserAttributes: (data) => {
     return {
       delete_flg: data.delete_flg,
-      //よく分からん
       username: data.username,
     };
   },

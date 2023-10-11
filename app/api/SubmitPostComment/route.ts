@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "@/lib/prisma";
+import prisma_C from "@/lib/prisma";
 
 export async function POST(req: Request, res: NextResponse) {
   try {
@@ -13,7 +13,7 @@ export async function POST(req: Request, res: NextResponse) {
     const now = new Date();
     //ISO形式に変換
     const nowISO8601 = now.toISOString();
-    const comment = await prisma.comment.create({
+    const comment = await prisma_C.comment.create({
       data: {
         content: msg,
         //ISO形式のみ(保存時はISOで＋1hなってるいるがフロントで変換している)
@@ -31,13 +31,13 @@ export async function POST(req: Request, res: NextResponse) {
         username: username,
       },
     });
-    const count = await prisma.comment.count({
+    const count = await prisma_C.comment.count({
       where: {
         id: Number(post_no),
       },
     });
     //使ってる
-    const update = await prisma.message.update({
+    const update = await prisma_C.message.update({
       data: {
         comment_count: count,
       },
@@ -50,6 +50,6 @@ export async function POST(req: Request, res: NextResponse) {
     console.log(err);
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
   }
 }

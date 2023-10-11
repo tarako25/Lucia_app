@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "@/lib/prisma";
+import prisma_C from "@/lib/prisma";
 
 export async function POST(req: Request, res: NextResponse) {
   try {
@@ -8,7 +8,7 @@ export async function POST(req: Request, res: NextResponse) {
     const post_no = data.post_no;
     const start = data.start;
     const Pageitem = data.Pageitem;
-    const comment = await prisma.comment.findMany({
+    const comment = await prisma_C.comment.findMany({
       skip: start,
       take: Pageitem,
       where: {
@@ -16,7 +16,7 @@ export async function POST(req: Request, res: NextResponse) {
       },
     });
 
-    const count = await prisma.comment.count();
+    const count = await prisma_C.comment.count();
 
     return NextResponse.json(
       { comment, count, message: "Success" },
@@ -25,6 +25,6 @@ export async function POST(req: Request, res: NextResponse) {
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
   }
 }

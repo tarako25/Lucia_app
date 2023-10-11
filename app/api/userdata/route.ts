@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "@/lib/prisma";
+import prisma_C from "@/lib/prisma";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
@@ -9,24 +9,24 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const Id = data.Id;
 
     //follow
-    const user = await prisma.user.findFirst({
+    const user = await prisma_C.user.findFirst({
       where: {
         id: Id,
       },
     });
-    const followed = await prisma.follow.findFirst({
+    const followed = await prisma_C.follow.findFirst({
       where: {
         followId: Id,
         userId: userId,
       },
     });
-    const followed_count = await prisma.follow.count({
+    const followed_count = await prisma_C.follow.count({
       where: {
         userId: Id,
       },
     });
     //follow
-    const followeder_count = await prisma.follower.count({
+    const followeder_count = await prisma_C.follower.count({
       where: {
         userId: Id,
       },
@@ -39,6 +39,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     console.log("エラー", err);
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
   }
 }

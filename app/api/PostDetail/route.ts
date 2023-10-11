@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "@/lib/prisma";
+import prisma_C from "@/lib/prisma";
 
 export async function POST(req: Request, res: NextResponse) {
   try {
     const no = await req.json();
     const post_no = parseInt(no);
-    const post = await prisma.message.findFirst({
+    const post = await prisma_C.message.findFirst({
       include: {
         good: true,
         user: true,
@@ -19,6 +19,6 @@ export async function POST(req: Request, res: NextResponse) {
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
   }
 }

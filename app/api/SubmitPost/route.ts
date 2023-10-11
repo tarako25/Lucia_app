@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "@/lib/prisma";
+import prisma_C from "@/lib/prisma";
 
 export async function POST(req: Request, res: NextResponse) {
   try {
@@ -12,7 +12,7 @@ export async function POST(req: Request, res: NextResponse) {
     const now = new Date();
     //ISO形式に変換
     const nowISO8601 = now.toISOString();
-    const mylist = await prisma.message.create({
+    const mylist = await prisma_C.message.create({
       data: {
         content: msg,
         //ISO形式のみ(保存時はISOで＋1hなってるいるがフロントで変換している)
@@ -30,6 +30,6 @@ export async function POST(req: Request, res: NextResponse) {
     console.log(err);
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
   }
 }

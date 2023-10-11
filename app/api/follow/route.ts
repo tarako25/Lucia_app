@@ -1,18 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from "@/lib/prisma";
-
-export async function DB() {
-  try {
-    await prisma.$connect();
-  } catch (error) {
-    return Error("DB接続に失敗しました");
-  }
-}
+import prisma_C from "@/lib/prisma";
 
 export async function POST(req: Request, res: NextResponse) {
   try {
-    await DB();
     const data = await req.json();
     const followId = data.followId;
     const followname = data.followName;
@@ -24,7 +15,7 @@ export async function POST(req: Request, res: NextResponse) {
     const nowISO8601 = now.toISOString();
 
     //follow
-    const follow = await prisma.follow.create({
+    const follow = await prisma_C.follow.create({
       data: {
         createdAt: nowISO8601,
         followId: followId,
@@ -39,7 +30,7 @@ export async function POST(req: Request, res: NextResponse) {
 
     //follower
     const no = follow.no;
-    const follower = await prisma.follower.create({
+    const follower = await prisma_C.follower.create({
       data: {
         createdAt: nowISO8601,
         follow: {
@@ -58,30 +49,29 @@ export async function POST(req: Request, res: NextResponse) {
     });
     return NextResponse.json(
       { follow, follower, message: "Success" },
-      { status: 201 },
+      { status: 201 }
     );
   } catch (err) {
     console.log(err);
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
   }
 }
 
 export async function PUT(req: Request, res: NextResponse) {
   try {
-    await DB();
     const no = await req.json();
 
     //follower
-    const unfollower = await prisma.follower.delete({
+    const unfollower = await prisma_C.follower.delete({
       where: {
         follow_no: no,
       },
     });
 
     //follow
-    const unfollow = await prisma.follow.delete({
+    const unfollow = await prisma_C.follow.delete({
       where: {
         no: no,
       },
@@ -89,12 +79,12 @@ export async function PUT(req: Request, res: NextResponse) {
 
     return NextResponse.json(
       { message: "Success", unfollow, unfollower },
-      { status: 201 },
+      { status: 201 }
     );
   } catch (err) {
     console.log(err);
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
-    await prisma.$disconnect();
+    await prisma_C.$disconnect();
   }
 }

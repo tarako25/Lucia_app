@@ -50,7 +50,7 @@ function GoodPost(props: any) {
       start,
       urlid,
     };
-    const response = await fetch("api/GoodPost", {
+    const response = await fetch("/api/GoodPost", {
       body: JSON.stringify(Page_data),
       headers: {
         "Content-type": "application/json",
