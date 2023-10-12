@@ -14,7 +14,7 @@ const Page = async () => {
   }
   return (
     <>
-      <div className="items-top mb-5  flex justify-around">
+      <div className="mb-5  flex justify-around">
         <div className="h-[500px] w-1/4 rounded bg-gray-500">
           <SideBar
             userId={session.user.userId}

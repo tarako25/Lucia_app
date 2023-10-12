@@ -27,7 +27,6 @@ export async function POST(req: Request, res: NextResponse) {
     });
     return NextResponse.json({ message: "Success", mylist }, { status: 201 });
   } catch (err) {
-    console.log(err);
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
     await prisma_C.$disconnect();

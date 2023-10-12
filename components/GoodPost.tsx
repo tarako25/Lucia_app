@@ -27,7 +27,6 @@ function GoodPost(props: any) {
     const urlId_good = url.slice(1);
     const urlId = urlId_good.split("/")[0];
     setUrlId(urlId);
-    console.log(urlId);
   }, []);
 
   //ページネーション
@@ -140,7 +139,7 @@ function GoodPost(props: any) {
                 </div>
                 {/*既にGoodが押されているかのチェック */}
                 {item.good.some(
-                  (goodItem: any) => goodItem.userId == userId
+                  (goodItem: any) => goodItem.userId == userId,
                 ) ? (
                   <button onClick={(e) => handleCancelGood(e, item.id)}>
                     <FavoriteIcon />

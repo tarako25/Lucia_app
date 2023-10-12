@@ -22,7 +22,7 @@ export const POST = async (request: NextRequest) => {
       },
       {
         status: 400,
-      }
+      },
     );
   }
   if (
@@ -36,7 +36,7 @@ export const POST = async (request: NextRequest) => {
       },
       {
         status: 400,
-      }
+      },
     );
   }
 
@@ -76,7 +76,7 @@ export const POST = async (request: NextRequest) => {
         },
         {
           status: 400,
-        }
+        },
       );
     }
 
@@ -86,7 +86,7 @@ export const POST = async (request: NextRequest) => {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 };

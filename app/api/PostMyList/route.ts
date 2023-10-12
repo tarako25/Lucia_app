@@ -41,7 +41,7 @@ export async function POST(req: Request, res: NextResponse) {
     });
     return NextResponse.json(
       { count, message: "Success", mylist },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });

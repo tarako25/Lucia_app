@@ -42,7 +42,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
     return NextResponse.json(
       { count, good, message: "Success" },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
@@ -86,7 +86,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(
       { count, good, message: "Success" },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });

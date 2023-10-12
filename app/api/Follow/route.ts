@@ -49,10 +49,9 @@ export async function POST(req: Request, res: NextResponse) {
     });
     return NextResponse.json(
       { follow, follower, message: "Success" },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (err) {
-    console.log(err);
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
     await prisma_C.$disconnect();
@@ -79,10 +78,9 @@ export async function PUT(req: Request, res: NextResponse) {
 
     return NextResponse.json(
       { message: "Success", unfollow, unfollower },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (err) {
-    console.log(err);
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
     await prisma_C.$disconnect();

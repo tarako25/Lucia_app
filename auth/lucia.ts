@@ -1,9 +1,10 @@
 import { prisma } from "@lucia-auth/adapter-prisma";
-import prisma_C from "@/lib/prisma";
 import { lucia } from "lucia";
 import { nextjs } from "lucia/middleware";
 import { cookies } from "next/headers";
 import { cache } from "react";
+
+import prisma_C from "@/lib/prisma";
 
 export const auth = lucia({
   adapter: prisma(prisma_C, {

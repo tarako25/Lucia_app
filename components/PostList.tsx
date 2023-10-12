@@ -81,7 +81,6 @@ function PostList(props: PostListProps) {
     //ページ数計算
     const count = Math.ceil(data.count / Pageitem);
     pageCount(count);
-    console.log(data.list);
   };
 
   //ページがsetされた時
@@ -170,7 +169,7 @@ function PostList(props: PostListProps) {
                 </div>
                 {/*既にGoodが押されているかのチェック */}
                 {item.good.some(
-                  (goodItem: any) => goodItem.userId == userId
+                  (goodItem: any) => goodItem.userId == userId,
                 ) ? (
                   <button onClick={(e) => handleCancelGood(e, item.id)}>
                     <FavoriteIcon />
