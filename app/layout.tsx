@@ -18,7 +18,9 @@ export default function RootLayout({
           <div className="flex justify-center text-center">
             <div className="h-full w-[900px]">
               <Link href="./">
-                <div className="my-14 text-3xl font-bold">Message_App</div>
+                <div className="my-14 text-3xl font-bold italic">
+                  Message_App
+                </div>
               </Link>
               {children}
             </div>
