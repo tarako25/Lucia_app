@@ -240,6 +240,14 @@ function Profile(props: any) {
                 )
               )}
             </div>
+            {userData && userData.id !== userId && (
+              <Link
+                href={`/DirectMessage/${userData.id}`}
+                className="border px-3 py-1"
+              >
+                ダイレクトメッセージを送る
+              </Link>
+            )}
           </div>
         </div>
       </div>
