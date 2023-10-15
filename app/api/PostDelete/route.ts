@@ -10,7 +10,7 @@ export async function DELETE(req: NextRequest, res: NextResponse) {
     if (postId === null) {
       return NextResponse.json(
         { message: "postIdが指定されていません" },
-        { status: 400 },
+        { status: 400 }
       );
     }
     //コメントを削除

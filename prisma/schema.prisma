@@ -22,7 +22,7 @@ model User {
   follow Follow[]
   follower Follower[]
   good Good[]
-  directmessage DirectMessage[]
+  direct_message DirectMessage[]
 }
 
 model Session {
