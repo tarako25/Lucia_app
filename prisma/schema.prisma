@@ -22,6 +22,7 @@ model User {
   follow Follow[]
   follower Follower[]
   good Good[]
+  directmessage DirectMessage[]
 }
 
 model Session {
@@ -96,4 +97,15 @@ model Good {
   createdAt DateTime
   message      Message    @relation(fields: [post_no], references: [id])
   user    User    @relation(fields: [userId], references: [id])
+}
+
+model DirectMessage {
+  id      Int     @id @default(autoincrement())
+  userId  String
+  targetId String
+  content String
+  createdAt DateTime
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
