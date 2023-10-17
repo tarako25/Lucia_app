@@ -1,11 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 function DirectMessage(props: any) {
   const { userId, username } = props;
-
+  const { mutate } = useSWRConfig();
+  
   const searchParams = useSearchParams();
   const targetId = searchParams.get("Id");
 
@@ -36,6 +37,7 @@ function DirectMessage(props: any) {
       body: formData,
       method: "POST",
     });
+    e.target.reset();
     if (!response.ok) {
       console.log("ロード中にエラーが発生しました");
     }
@@ -65,6 +67,7 @@ function DirectMessage(props: any) {
                     {item.content}
                   </div>
                 </li>
+              ))}
             </ul>
           </div>
         </div>
