@@ -1,6 +1,7 @@
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
 import { getPageSession } from "@/auth/lucia";
 import PostComment from "@/components/PostComment";
 import PostDetail from "@/components/PostDetail";

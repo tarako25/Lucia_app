@@ -1,5 +1,5 @@
-import React from "react";
 import { redirect } from "next/navigation";
+import React from "react";
 
 import { getPageSession } from "@/auth/lucia";
 import DirectMessage from "@/components/DirectMessage";

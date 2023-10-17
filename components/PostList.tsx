@@ -169,7 +169,7 @@ function PostList(props: PostListProps) {
                 </div>
                 {/*既にGoodが押されているかのチェック */}
                 {item.good.some(
-                  (goodItem: any) => goodItem.userId == userId
+                  (goodItem: any) => goodItem.userId == userId,
                 ) ? (
                   <button onClick={(e) => handleCancelGood(e, item.id)}>
                     <FavoriteIcon />

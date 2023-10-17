@@ -1,7 +1,8 @@
+import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+
 import { getPageSession } from "@/auth/lucia";
 import prisma_C from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
@@ -19,9 +20,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
     //directmessageで登録すると勝手にdirectMessageのように変換されるため補完機能で書く
     await prisma_C.directMessage.create({
       data: {
-        targetId: String(targetId),
         content: String(message),
         createdAt: nowISO8601,
+        targetId: String(targetId),
         user: {
           connect: {
             id: uerId, // ここで関連するユーザーのIDを指定
@@ -46,12 +47,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const data = await prisma_C.directMessage.findMany({
       where: {
-        userId: uerId,
         targetId: String(targetId),
+        userId: uerId,
       },
     });
-    console.log("おめ");
-    return NextResponse.json({ message: "Success", data }, { status: 201 });
+    return NextResponse.json({ data, message: "Success" }, { status: 201 });
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
