@@ -6,7 +6,7 @@ import useSWR, { useSWRConfig } from "swr";
 function DirectMessage(props: any) {
   const { userId, username } = props;
   const { mutate } = useSWRConfig();
-  
+
   const searchParams = useSearchParams();
   const targetId = searchParams.get("Id");
 
@@ -18,7 +18,6 @@ function DirectMessage(props: any) {
     async () => {
       const response = await fetch(`/api/DirectSendMessage?id=${targetId}`);
       const element = await response.json();
-      console.log(element.data);
       return element;
     }
   );
