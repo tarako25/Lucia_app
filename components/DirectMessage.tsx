@@ -39,6 +39,7 @@ function DirectMessage(props: any) {
     if (!response.ok) {
       console.log("ロード中にエラーが発生しました");
     }
+    mutate(`/api/DirectSendMessage?id=${targetId}`);
   };
 
   return (
@@ -53,16 +54,17 @@ function DirectMessage(props: any) {
           <div className="flex justify-center ">
             <ul className="w-11/12 text-left">
               {/* メッセージ */}
-              <li className="flex items-center mt-6">
-                <div className="mr-4 w-14 h-14 ">
-                  <div className="justify-center items-center flex h-full border rounded-full">
-                    img
+              {data.data.map((item: any) => (
+                <li className="flex items-center mt-6">
+                  <div className="mr-4 w-14 h-14 ">
+                    <div className="justify-center items-center flex h-full border rounded-full">
+                      {item.no}
+                    </div>
                   </div>
-                </div>
-                <div className="text-xl bg-gray-300 px-3 py-1 rounded-xl">
-                  sample
-                </div>
-              </li>
+                  <div className="text-xl bg-gray-300 px-3 py-1 rounded-xl">
+                    {item.content}
+                  </div>
+                </li>
             </ul>
           </div>
         </div>
