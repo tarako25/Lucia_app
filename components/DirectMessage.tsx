@@ -17,7 +17,7 @@ function DirectMessage(props: any) {
       const response = await fetch(`/api/DirectSendMessage?id=${targetId}`);
       const element = await response.json();
       return element;
-    }
+    },
   );
 
   if (error) {
