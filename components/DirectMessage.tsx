@@ -18,6 +18,7 @@ function DirectMessage(props: any) {
       const element = await response.json();
       return element;
     },
+    { refreshInterval: 1000 }
   );
 
   if (error) {
