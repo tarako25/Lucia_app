@@ -17,7 +17,7 @@ function DirectMessage(props: any) {
       const response = await fetch(`/api/DirectSendMessage?id=${targetId}`);
       const element = await response.json();
       return element;
-    },
+    }
   );
 
   if (error) {
@@ -53,18 +53,16 @@ function DirectMessage(props: any) {
           <div className="flex justify-center ">
             <ul className="w-11/12 text-left">
               {/* メッセージ */}
-              {data.data.map((item: any) => (
-                <li key={item.id} className="mt-6 flex items-center">
-                  <div className="mr-4 h-14 w-14 ">
-                    <div className="flex h-full items-center justify-center rounded-full border">
-                      img
-                    </div>
+              <li className="flex items-center mt-6">
+                <div className="mr-4 w-14 h-14 ">
+                  <div className="justify-center items-center flex h-full border rounded-full">
+                    img
                   </div>
-                  <div className="rounded-xl bg-gray-300 px-3 py-1 text-xl">
-                    {item.content}
-                  </div>
-                </li>
-              ))}
+                </div>
+                <div className="text-xl bg-gray-300 px-3 py-1 rounded-xl">
+                  sample
+                </div>
+              </li>
             </ul>
           </div>
         </div>
