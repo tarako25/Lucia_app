@@ -47,8 +47,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const data = await prisma_C.directMessage.findMany({
       where: {
-        targetId: String(targetId),
-        userId: uerId,
+        targetId: {
+          in: [String(uerId), String(targetId)],
+        },
+        userId: {
+          in: [String(uerId), String(targetId)],
+        },
       },
     });
     return NextResponse.json({ data, message: "Success" }, { status: 201 });
