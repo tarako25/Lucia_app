@@ -21,6 +21,15 @@ function DirectMessage(props: any) {
     { refreshInterval: 1000 }
   );
 
+  useEffect(() => {
+    const scroll = document.getElementById("scroll");
+    if (scroll) {
+      const scrollHeight = scroll?.scrollHeight;
+      scroll.style.scrollBehavior = "smooth";
+      scroll.scrollTop = scrollHeight;
+    }
+  }, [data]);
+
   if (error) {
     return <div>ユーザーの取得に失敗しました：{error.message}</div>;
   }
@@ -50,7 +59,10 @@ function DirectMessage(props: any) {
             <div className="flex items-center font-bold">Name</div>
           </div>
         </div>
-        <div className="mb-2 h-[700px] w-full overflow-y-auto bg-white">
+        <div
+          className="mb-2 h-[700px] w-full overflow-y-auto pb-4 bg-white"
+          id="scroll"
+        >
           <div className="flex justify-center ">
             <ul className="w-11/12 text-left">
               {/* メッセージ */}
