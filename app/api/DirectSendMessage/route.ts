@@ -54,6 +54,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
           in: [String(uerId), String(targetId)],
         },
       },
+      orderBy: {
+        createdAt: "desc", // createdAt フィールドで降順に並べ替える
+      },
+      take: 20,
     });
     return NextResponse.json({ data, message: "Success" }, { status: 201 });
   } catch (err) {

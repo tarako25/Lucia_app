@@ -66,34 +66,37 @@ function DirectMessage(props: any) {
           <div className="flex justify-center ">
             <ul className="w-11/12 text-left">
               {/* メッセージ */}
-              {data.data.map((item: any) =>
-                item.userId == userId ? (
-                  <li key={item.id} className="mt-6 flex items-center">
-                    <div className="mr-4 h-14 w-14 ">
-                      <div className="flex h-full items-center justify-center rounded-full border">
-                        img
+              {data.data
+                .slice()
+                .reverse()
+                .map((item: any) =>
+                  item.userId == userId ? (
+                    <li key={item.id} className="mt-6 flex items-center">
+                      <div className="mr-4 h-14 w-14 ">
+                        <div className="flex h-full items-center justify-center rounded-full border">
+                          img
+                        </div>
                       </div>
-                    </div>
-                    <div className="rounded-xl bg-green-300 px-3 py-1 text-xl">
-                      {item.content}
-                    </div>
-                  </li>
-                ) : (
-                  <li
-                    key={item.id}
-                    className="mt-6 flex items-center justify-end"
-                  >
-                    <div className="rounded-xl bg-gray-300 px-3 py-1 text-xl">
-                      {item.content}
-                    </div>
-                    <div className="ml-4 h-14 w-14">
-                      <div className="flex h-full items-center justify-center rounded-full border">
-                        img
+                      <div className="rounded-xl bg-green-300 px-3 py-1 text-xl">
+                        {item.content}
                       </div>
-                    </div>
-                  </li>
-                )
-              )}
+                    </li>
+                  ) : (
+                    <li
+                      key={item.id}
+                      className="mt-6 flex items-center justify-end"
+                    >
+                      <div className="rounded-xl bg-gray-300 px-3 py-1 text-xl">
+                        {item.content}
+                      </div>
+                      <div className="ml-4 h-14 w-14">
+                        <div className="flex h-full items-center justify-center rounded-full border">
+                          img
+                        </div>
+                      </div>
+                    </li>
+                  )
+                )}
             </ul>
           </div>
         </div>
