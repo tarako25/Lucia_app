@@ -17,7 +17,7 @@ const Page = async () => {
   return (
     <>
       <div className="flex justify-around">
-        <div className="h-[500px] w-1/4 rounded bg-gray-500">
+        <div className="h-[600px] w-1/4 rounded bg-gray-500">
           <SideBar
             userId={session.user.userId}
             username={session.user.username}

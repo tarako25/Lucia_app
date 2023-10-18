@@ -4,6 +4,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Link from "next/link";
 
 import LogForm from "@/components/LogForm";
@@ -41,6 +42,13 @@ function SideBar(props: any) {
           >
             <FavoriteIcon className="mr-2" />
             Goodした投稿
+          </Link>
+          <Link
+            href={`/DirectMessageList`}
+            className="mt-5 block cursor-pointer rounded bg-white py-3 pl-3"
+          >
+            <MailOutlineIcon className="mr-2" />
+            ダイレクトメッセージ
           </Link>
           <label htmlFor="logout">
             <div className="mt-5 cursor-pointer rounded bg-white py-3 pl-3">

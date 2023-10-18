@@ -23,12 +23,7 @@ const Page = async () => {
       </div>
       <div className="mb-2 w-2/3 rounded bg-gray-500">
         <div className="flex flex-col items-center justify-center">
-          <div className="w-11/12">
-            <DirectMessage
-              userId={session.user.userId}
-              username={session.user.username}
-            />
-          </div>
+          <div className="w-11/12"></div>
         </div>
       </div>
     </div>
