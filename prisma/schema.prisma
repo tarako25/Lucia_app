@@ -103,6 +103,8 @@ model DirectMessage {
   id      Int     @id @default(autoincrement())
   userId  String
   targetId String
+  username String
+  targetname String
   content String
   createdAt DateTime
   user    User    @relation(fields: [userId], references: [id])

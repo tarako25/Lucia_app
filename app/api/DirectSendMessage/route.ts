@@ -10,6 +10,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const formData = await req.formData();
     const message = formData.get("message");
     const uerId = session?.user.userId;
+    const username = session?.user.username;
     const url = new URL(req.url);
     const targetId = url.searchParams.get("id");
     //日付作成
@@ -18,11 +19,20 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const nowISO8601 = now.toISOString();
     //schemで登録した名前ではない
     //directmessageで登録すると勝手にdirectMessageのように変換されるため補完機能で書く
+    const userdata = await prisma_C.user.findFirst({
+      where: {
+        id: String(targetId),
+      },
+    });
+    const targetname = userdata?.username;
     await prisma_C.directMessage.create({
       data: {
         content: String(message),
         createdAt: nowISO8601,
+        username: String(username),
+        targetname: String(targetname),
         targetId: String(targetId),
+
         user: {
           connect: {
             id: uerId, // ここで関連するユーザーのIDを指定

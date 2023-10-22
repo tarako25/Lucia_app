@@ -4,6 +4,7 @@ import React from "react";
 import { getPageSession } from "@/auth/lucia";
 import DirectMessage from "@/components/DirectMessage";
 import SideBar from "@/components/SideBar";
+import DirectMessageList from "@/components/DirectMessageList";
 
 const Page = async () => {
   const session = await getPageSession();
@@ -23,7 +24,12 @@ const Page = async () => {
       </div>
       <div className="mb-2 w-2/3 rounded bg-gray-500">
         <div className="flex flex-col items-center justify-center">
-          <div className="w-11/12"></div>
+          <div className="w-11/12">
+            <DirectMessageList
+              userId={session.user.userId}
+              username={session.user.username}
+            />
+          </div>
         </div>
       </div>
     </div>
