@@ -10,8 +10,7 @@ function DirectMessageList(props: any) {
       console.error("HTTPエラー:", response.statusText);
     }
     const data = await response.json();
-    setData(data.user);
-    console.log(data.user);
+    setData(data.uniqueUser);
   };
   useEffect(() => {
     getDirectMessageList();

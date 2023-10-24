@@ -57,11 +57,13 @@ function DirectMessage(props: any) {
       <div className="my-5">
         <div className="text h-[60px] w-full rounded-t bg-gray-200">
           <div className="items-ceneter flex h-full justify-center">
-            <div className="flex items-center font-bold">
-              {data.data[0].targetname !== username
-                ? data.data[0].targetname
-                : data.data[0].username}
-            </div>
+            {data.data[0] && (
+              <div className="flex items-center font-bold">
+                {data.data[0].targetname !== username
+                  ? data.data[0].targetname
+                  : data.data[0].username}
+              </div>
+            )}
           </div>
         </div>
         <div
