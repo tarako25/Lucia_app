@@ -51,17 +51,17 @@ export async function POST(req: NextRequest, res: NextResponse) {
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const session = await getPageSession();
-    const uerId = session?.user.userId;
+    const userId = session?.user.userId;
     const url = new URL(req.url);
     const targetId = url.searchParams.get("id");
 
     const data = await prisma_C.directMessage.findMany({
       where: {
         targetId: {
-          in: [String(uerId), String(targetId)],
+          in: [String(userId), String(targetId)],
         },
         userId: {
-          in: [String(uerId), String(targetId)],
+          in: [String(userId), String(targetId)],
         },
       },
       orderBy: {

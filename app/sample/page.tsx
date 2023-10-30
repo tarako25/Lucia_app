@@ -1,7 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 function page() {
+  const [img, setImg] = useState(
+    "https://qyecgulkarzfwziludjh.supabase.co/storage/v1/object/public/avatars/sample.png"
+  );
+
   // Create Supabase client
   const supabase = createClient(
     "https://qyecgulkarzfwziludjh.supabase.co",
@@ -12,20 +16,26 @@ function page() {
       // 画像が選択されていないのでreturn
       return;
     }
+    await supabase.storage.from("avatars").remove(["sample.png"]);
+
     const file = e.target.files[0];
     const { data, error } = await supabase.storage
-      .from("SNS_APP_IMG")
-      .upload(`Acount_IMG/sample.png`, file);
+      .from("avatars")
+      .upload("sample.png", file, {
+        cacheControl: "1",
+        upsert: true,
+      });
     if (error) {
       // Handle error
-    } else {
-      // Handle success
+      console.log(error);
     }
   };
   return (
     <>
       <div>
         <input type="file" onChange={handleImageChange} />
+        <p>写真</p>
+        <img src={img} />
       </div>
     </>
   );

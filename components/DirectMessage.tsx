@@ -2,13 +2,27 @@
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
+import Image from "next/image";
 
 function DirectMessage(props: any) {
   const { userId, username } = props;
   const { mutate } = useSWRConfig();
-
+  const [userdata, setUserdata] = useState("");
+  const [targetdata, setTargetdata] = useState("");
   const searchParams = useSearchParams();
   const targetId = searchParams.get("Id");
+
+  //ユーザー情報を取得
+  const getUserData = async () => {
+    const response = await fetch(`api/DirectMessageUser?id=${targetId}`);
+    const element = await response.json();
+    setUserdata(element.user);
+    setTargetdata(element.target);
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   //メッセージ取得
   const { data, error } = useSWR(
@@ -38,6 +52,7 @@ function DirectMessage(props: any) {
   if (!data) {
     return <div>ユーザーの読み込み中...</div>;
   }
+  //メッセージを送信
   const SendMessage = async (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -80,9 +95,12 @@ function DirectMessage(props: any) {
                   item.userId == userId ? (
                     <li key={item.id} className="mt-6 flex items-center">
                       <div className="mr-4 h-14 w-14 ">
-                        <div className="flex h-full items-center justify-center rounded-full border">
-                          img
-                        </div>
+                        <Image
+                          alt="アイコン"
+                          src={userdata.avatar_img}
+                          width={30}
+                          height={30}
+                        />
                       </div>
                       <div className="rounded-xl bg-green-300 px-3 py-1 text-xl">
                         {item.content}
@@ -97,9 +115,12 @@ function DirectMessage(props: any) {
                         {item.content}
                       </div>
                       <div className="ml-4 h-14 w-14">
-                        <div className="flex h-full items-center justify-center rounded-full border">
-                          img
-                        </div>
+                        <Image
+                          alt="アイコン"
+                          src={targetdata.avatar_img}
+                          width={30}
+                          height={30}
+                        />
                       </div>
                     </li>
                   )

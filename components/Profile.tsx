@@ -4,6 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import no_profile from "@/imgs/no-avatar.png";
+import Image from "next/image";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { createClient } from "@supabase/supabase-js";
+import { v4 as uuidv4 } from "uuid";
 
 function Profile(props: any) {
   const { userId } = props;
@@ -32,6 +37,13 @@ function Profile(props: any) {
   const [followed, setFollowed] = useState("");
   const [followed_count, setFollowed_count] = useState("");
   const [followeder_count, setFolloweder_count] = useState("");
+  const [img, setImg] = useState("");
+
+  // Create Supabase client
+  const supabase = createClient(
+    "https://qyecgulkarzfwziludjh.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5ZWNndWxrYXJ6Znd6aWx1ZGpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc1NDU5MTUsImV4cCI6MjAxMzEyMTkxNX0.wklN0pvj5FBfref2w-8aXVJbVrnvXJgggTQXGQOkcJc"
+  );
 
   //プロフィール情報を取得
   const getUserData = async () => {
@@ -52,12 +64,14 @@ function Profile(props: any) {
       console.error("HTTPエラー:", response.statusText);
     }
     const data = await response.json();
+    console.log(data);
     setUserData(data.user);
     setFollowed(data.followed?.no);
     setFollowed_count(data.followed_count);
     setFolloweder_count(data.followeder_count);
     setName(data.user.username);
     setProduction(data.user.production);
+    setImg(data.user.avatar_img);
   };
 
   //プロフィール編集モーダル
@@ -143,6 +157,46 @@ function Profile(props: any) {
       console.error("HTTPエラー:", response.statusText);
     }
   };
+
+  //プロフィール画像編集
+  const handleImageChange = async (e: any) => {
+    if (!e.target.files || e.target.files.length == 0) {
+      // 画像が選択されていないのでreturn
+      return;
+    }
+    const file_name = uuidv4();
+    const file = e.target.files[0];
+    const { data, error } = await supabase.storage
+      .from("avatars")
+      .upload(file_name, file, {
+        cacheControl: "3600",
+        upsert: true,
+      });
+    if (error) {
+      // Handle error
+      console.log(error);
+    } else {
+      const data = supabase.storage.from("avatars").getPublicUrl(file_name);
+      setImg(data.data.publicUrl);
+      fetchStorage(data.data.publicUrl);
+    }
+  };
+
+  //プロフィール画像URLをStorageに保存
+  const fetchStorage = async (url: string) => {
+    const data = {
+      url,
+      userId,
+    };
+    const response = await fetch("api/SbStorage", {
+      body: JSON.stringify(data),
+      method: "POST",
+    });
+    if (!response.ok) {
+      console.error("HTTPエラー:", response.statusText);
+    }
+  };
+
   return (
     <>
       <Toaster />
@@ -152,18 +206,46 @@ function Profile(props: any) {
         id="editBox"
       >
         <div className="fixed inset-x-1/2 inset-y-1/4 flex flex-col items-center">
-          <div className="h-[300px] w-[400px] rounded bg-gray-500">
+          <div className="h-[500px] w-[400px] rounded bg-gray-500">
             <div className="flex h-full w-full items-center justify-center">
-              <div className="h-[275px] w-[375px] rounded bg-white">
+              <div className="h-[430px] w-[375px] rounded bg-white">
                 <div className="flex h-full w-full items-center justify-center">
                   <form
                     onSubmit={handleEdit}
-                    className="flex w-[325px] flex-col"
+                    className="flex w-[300px] flex-col items-center"
                   >
                     <div className="mb-5 font-bold">プロフィール情報編集</div>
+                    <div className="border-gray-300 relative overflow-hidden border-2 rounded-full mb-5  w-20 h-20 flex justify-center items-center">
+                      {img ? (
+                        <Image
+                          alt="プロフィール画像"
+                          src={img}
+                          width={100}
+                          height={100}
+                        />
+                      ) : (
+                        <Image
+                          alt="プロフィール画像"
+                          src={no_profile}
+                          className="w-full h-full"
+                        />
+                      )}
+                      <input
+                        type="file"
+                        id="fileInput"
+                        className="hidden"
+                        onChange={handleImageChange}
+                      />
+                      <label
+                        htmlFor="fileInput"
+                        className="absolute bg-slate-700 bg-opacity-70 w-12 h-12 rounded-full flex justify-center items-center"
+                      >
+                        <AddAPhotoIcon className="text-white" />
+                      </label>
+                    </div>
                     <input
                       type="text"
-                      className="mb-3 h-11 w-full pl-2"
+                      className="mb-3 h-11 w-full pl-2 border border-gray-400"
                       onChange={(e) => setName(e.target.value)}
                       name="name"
                       placeholder="新しいユーザー名を入力して下さい"
@@ -172,7 +254,7 @@ function Profile(props: any) {
                     />
                     <input
                       type="text"
-                      className="mb-3 h-11 w-full pl-2"
+                      className="mb-3 h-11 w-full pl-2 border border-gray-400"
                       onChange={(e) => setProduction(e.target.value)}
                       name="pr"
                       placeholder="自己紹介文を書こう"
@@ -207,8 +289,23 @@ function Profile(props: any) {
             </p>
           </div>
         </Link>
-        <div className="w-full rounded border bg-white px-4 py-5">
-          <div className="mb-10 mt-5 flex">img</div>
+        <div className="w-full rounded  bg-white px-4 py-5 ">
+          <div className="border-gray-300 overflow-hidden border-2 rounded-full mb-5  w-20 h-20 flex justify-center items-center">
+            {img ? (
+              <Image
+                alt="プロフィール画像"
+                src={img}
+                width={100}
+                height={100}
+              />
+            ) : (
+              <Image
+                alt="プロフィール画像"
+                src={no_profile}
+                className="w-full h-full"
+              />
+            )}
+          </div>
           <div className="mb-5 flex justify-between">
             <div className="flex flex-col items-start">
               <div ref={followNameref}>{userData?.username}</div>
