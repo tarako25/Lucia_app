@@ -72,13 +72,9 @@ function DirectMessage(props: any) {
       <div className="my-5">
         <div className="text h-[60px] w-full rounded-t bg-gray-200">
           <div className="items-ceneter flex h-full justify-center">
-            {data.data[0] && (
-              <div className="flex items-center font-bold">
-                {data.data[0].targetname !== username
-                  ? data.data[0].targetname
-                  : data.data[0].username}
-              </div>
-            )}
+            <div className="flex items-center font-bold">
+              {targetdata.username}
+            </div>
           </div>
         </div>
         <div
@@ -94,12 +90,13 @@ function DirectMessage(props: any) {
                 .map((item: any) =>
                   item.userId == userId ? (
                     <li key={item.id} className="mt-6 flex items-center">
-                      <div className="mr-4 h-14 w-14 ">
+                      <div className="mr-4 h-14 w-14 overflow-hidden rounded-full border border-gray-300">
                         <Image
                           alt="アイコン"
                           src={userdata.avatar_img}
-                          width={30}
-                          height={30}
+                          width={50}
+                          height={50}
+                          className="h-full w-full"
                         />
                       </div>
                       <div className="rounded-xl bg-green-300 px-3 py-1 text-xl">
@@ -114,12 +111,13 @@ function DirectMessage(props: any) {
                       <div className="rounded-xl bg-gray-300 px-3 py-1 text-xl">
                         {item.content}
                       </div>
-                      <div className="ml-4 h-14 w-14">
+                      <div className="ml-4 h-14 w-14 overflow-hidden rounded-full border border-gray-300">
                         <Image
                           alt="アイコン"
                           src={targetdata.avatar_img}
-                          width={30}
-                          height={30}
+                          width={50}
+                          height={50}
+                          className="h-full w-full"
                         />
                       </div>
                     </li>

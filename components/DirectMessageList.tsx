@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 function DirectMessageList(props: any) {
   const { userId, username } = props;
   const [data, setData] = useState([]);
+
   const getDirectMessageList = async () => {
     const response = await fetch("api/DirectMessageList");
     if (!response.ok) {

@@ -34,7 +34,6 @@ export async function GET(req: Request, res: NextResponse) {
         ) !== index;
       return !isDuplicate;
     });
-
     return NextResponse.json(
       { message: "Success", uniqueUser },
       { status: 201 }
