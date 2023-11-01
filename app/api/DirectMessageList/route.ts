@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma_C from "@/lib/prisma";
 import { getPageSession } from "@/auth/lucia";
+import prisma_C from "@/lib/prisma";
 
 export async function GET(req: Request, res: NextResponse) {
   try {
@@ -9,6 +9,7 @@ export async function GET(req: Request, res: NextResponse) {
     const userId = session?.user.userId;
 
     const user = await prisma_C.directMessage.findMany({
+      distinct: ["targetId", "userId"],
       where: {
         OR: [
           {
@@ -19,7 +20,6 @@ export async function GET(req: Request, res: NextResponse) {
           },
         ],
       },
-      distinct: ["targetId", "userId"],
     });
 
     // フィルタリングを実行して重複を削除
@@ -30,7 +30,7 @@ export async function GET(req: Request, res: NextResponse) {
             (other.username === item.targetname &&
               other.targetname === item.username) ||
             (other.username === item.username &&
-              other.targetname === item.targetname)
+              other.targetname === item.targetname),
         ) !== index;
       return !isDuplicate;
     });
@@ -46,7 +46,7 @@ export async function GET(req: Request, res: NextResponse) {
         },
       },
     });
-    return NextResponse.json({ message: "Success", list }, { status: 201 });
+    return NextResponse.json({ list, message: "Success" }, { status: 201 });
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {

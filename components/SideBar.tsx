@@ -1,10 +1,10 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Link from "next/link";
 
 import LogForm from "@/components/LogForm";

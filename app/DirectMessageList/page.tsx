@@ -3,8 +3,8 @@ import React from "react";
 
 import { getPageSession } from "@/auth/lucia";
 import DirectMessage from "@/components/DirectMessage";
-import SideBar from "@/components/SideBar";
 import DirectMessageList from "@/components/DirectMessageList";
+import SideBar from "@/components/SideBar";
 
 const Page = async () => {
   const session = await getPageSession();

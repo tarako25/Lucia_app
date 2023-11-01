@@ -8,11 +8,11 @@ export async function POST(req: Request, res: NextResponse) {
     const url = data.url;
     const userId = data.userId;
     await prisma_C.user.update({
-      where: {
-        id: userId,
-      },
       data: {
         avatar_img: url,
+      },
+      where: {
+        id: userId,
       },
     });
     return NextResponse.json({ message: "Success" }, { status: 201 });

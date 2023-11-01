@@ -29,15 +29,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
       data: {
         content: String(message),
         createdAt: nowISO8601,
-        username: String(username),
-        targetname: String(targetname),
         targetId: String(targetId),
+        targetname: String(targetname),
 
         user: {
           connect: {
             id: uerId, // ここで関連するユーザーのIDを指定
           },
         },
+        username: String(username),
       },
     });
     return NextResponse.json({ message: "Success" }, { status: 201 });
@@ -56,6 +56,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const targetId = url.searchParams.get("id");
 
     const data = await prisma_C.directMessage.findMany({
+      orderBy: {
+        createdAt: "desc", // createdAt フィールドで降順に並べ替える
+      },
+      take: 20,
       where: {
         targetId: {
           in: [String(userId), String(targetId)],
@@ -64,10 +68,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
           in: [String(userId), String(targetId)],
         },
       },
-      orderBy: {
-        createdAt: "desc", // createdAt フィールドで降順に並べ替える
-      },
-      take: 20,
     });
     return NextResponse.json({ data, message: "Success" }, { status: 201 });
   } catch (err) {

@@ -1,8 +1,8 @@
 "use client";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
-import Image from "next/image";
 
 function DirectMessage(props: any) {
   const { userId, username } = props;
@@ -33,7 +33,7 @@ function DirectMessage(props: any) {
       console.log(element);
       return element;
     },
-    { refreshInterval: 1000 }
+    { refreshInterval: 1000 },
   );
 
   useEffect(() => {
@@ -78,7 +78,7 @@ function DirectMessage(props: any) {
           </div>
         </div>
         <div
-          className="mb-2 h-[700px] w-full overflow-y-auto pb-4 bg-white"
+          className="mb-2 h-[700px] w-full overflow-y-auto bg-white pb-4"
           id="scroll"
         >
           <div className="flex justify-center ">
@@ -121,7 +121,7 @@ function DirectMessage(props: any) {
                         />
                       </div>
                     </li>
-                  )
+                  ),
                 )}
             </ul>
           </div>

@@ -1,14 +1,15 @@
 "use client";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import { createClient } from "@supabase/supabase-js";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import no_profile from "@/imgs/no-avatar.png";
-import Image from "next/image";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
+
+import no_profile from "@/imgs/no-avatar.png";
 
 function Profile(props: any) {
   const { userId } = props;
@@ -42,7 +43,7 @@ function Profile(props: any) {
   // Create Supabase client
   const supabase = createClient(
     "https://qyecgulkarzfwziludjh.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5ZWNndWxrYXJ6Znd6aWx1ZGpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc1NDU5MTUsImV4cCI6MjAxMzEyMTkxNX0.wklN0pvj5FBfref2w-8aXVJbVrnvXJgggTQXGQOkcJc"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5ZWNndWxrYXJ6Znd6aWx1ZGpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc1NDU5MTUsImV4cCI6MjAxMzEyMTkxNX0.wklN0pvj5FBfref2w-8aXVJbVrnvXJgggTQXGQOkcJc",
   );
 
   //プロフィール情報を取得
@@ -215,20 +216,20 @@ function Profile(props: any) {
                     className="flex w-[300px] flex-col items-center"
                   >
                     <div className="mb-5 font-bold">プロフィール情報編集</div>
-                    <div className="border-gray-300 relative overflow-hidden border-2 rounded-full mb-5  w-20 h-20 flex justify-center items-center">
+                    <div className="relative mb-5 flex h-20 w-20 items-center  justify-center overflow-hidden rounded-full border-2 border-gray-300">
                       {img ? (
                         <Image
                           alt="プロフィール画像"
                           src={img}
                           width={100}
                           height={100}
-                          className="w-full h-full"
+                          className="h-full w-full"
                         />
                       ) : (
                         <Image
                           alt="プロフィール画像"
                           src={no_profile}
-                          className="w-full h-full"
+                          className="h-full w-full"
                         />
                       )}
                       <input
@@ -239,14 +240,14 @@ function Profile(props: any) {
                       />
                       <label
                         htmlFor="fileInput"
-                        className="absolute bg-slate-700 bg-opacity-70 w-12 h-12 rounded-full flex justify-center items-center"
+                        className="absolute flex h-12 w-12 items-center justify-center rounded-full bg-slate-700 bg-opacity-70"
                       >
                         <AddAPhotoIcon className="text-white" />
                       </label>
                     </div>
                     <input
                       type="text"
-                      className="mb-3 h-11 w-full pl-2 border border-gray-400"
+                      className="mb-3 h-11 w-full border border-gray-400 pl-2"
                       onChange={(e) => setName(e.target.value)}
                       name="name"
                       placeholder="新しいユーザー名を入力して下さい"
@@ -255,7 +256,7 @@ function Profile(props: any) {
                     />
                     <input
                       type="text"
-                      className="mb-3 h-11 w-full pl-2 border border-gray-400"
+                      className="mb-3 h-11 w-full border border-gray-400 pl-2"
                       onChange={(e) => setProduction(e.target.value)}
                       name="pr"
                       placeholder="自己紹介文を書こう"
@@ -291,20 +292,20 @@ function Profile(props: any) {
           </div>
         </Link>
         <div className="w-full rounded  bg-white px-4 py-5 ">
-          <div className="border-gray-300 overflow-hidden border-2 rounded-full mb-5  w-20 h-20 flex justify-center items-center">
+          <div className="mb-5 flex h-20 w-20 items-center  justify-center overflow-hidden rounded-full border-2 border-gray-300">
             {img ? (
               <Image
                 alt="プロフィール画像"
                 src={img}
                 width={100}
                 height={100}
-                className="w-full h-full"
+                className="h-full w-full"
               />
             ) : (
               <Image
                 alt="プロフィール画像"
                 src={no_profile}
-                className="w-full h-full"
+                className="h-full w-full"
               />
             )}
           </div>

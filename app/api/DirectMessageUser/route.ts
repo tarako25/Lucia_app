@@ -21,8 +21,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
       },
     });
     return NextResponse.json(
-      { message: "Success", user, target },
-      { status: 201 }
+      { message: "Success", target, user },
+      { status: 201 },
     );
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });

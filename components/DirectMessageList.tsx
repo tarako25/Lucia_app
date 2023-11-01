@@ -1,7 +1,7 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 
 function DirectMessageList(props: any) {
   const { userId, username } = props;
@@ -26,7 +26,7 @@ function DirectMessageList(props: any) {
           {data.map((item: any) => (
             //自分がtargetid(最初に送った)の場合反転する必要があるため分岐
             <Link
-              className="flex items-center w-full justify-start bg-white rounded mt-5"
+              className="mt-5 flex w-full items-center justify-start rounded bg-white"
               href={`/DirectMessage?Id=${item.id}`}
               key={item.id}
             >
