@@ -34,10 +34,19 @@ export async function GET(req: Request, res: NextResponse) {
         ) !== index;
       return !isDuplicate;
     });
-    return NextResponse.json(
-      { message: "Success", uniqueUser },
-      { status: 201 }
-    );
+    //ユーザーリスト取得
+    const users = uniqueUser.map((user) => {
+      return user.targetId == userId ? user.userId : user.targetId;
+    });
+
+    const list = await prisma_C.user.findMany({
+      where: {
+        id: {
+          in: users,
+        },
+      },
+    });
+    return NextResponse.json({ message: "Success", list }, { status: 201 });
   } catch (err) {
     return NextResponse.json({ err, message: "Error" }, { status: 500 });
   } finally {
