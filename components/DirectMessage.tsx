@@ -7,8 +7,32 @@ import useSWR, { useSWRConfig } from "swr";
 function DirectMessage(props: any) {
   const { userId, username } = props;
   const { mutate } = useSWRConfig();
-  const [userdata, setUserdata] = useState("");
-  const [targetdata, setTargetdata] = useState("");
+  const [userdata, setUserdata] = useState<{
+    id: string;
+    username: string;
+    production: string | null;
+    avatar_img: string;
+    delete_flg: number;
+  }>({
+    id: "",
+    username: "",
+    production: null,
+    avatar_img: "",
+    delete_flg: 0,
+  });
+  const [targetdata, setTargetdata] = useState<{
+    id: string;
+    username: string;
+    production: string | null;
+    avatar_img: string;
+    delete_flg: number;
+  }>({
+    id: "",
+    username: "",
+    production: null,
+    avatar_img: "",
+    delete_flg: 0,
+  });
   const searchParams = useSearchParams();
   const targetId = searchParams.get("Id");
 
@@ -30,10 +54,9 @@ function DirectMessage(props: any) {
     async () => {
       const response = await fetch(`/api/DirectSendMessage?id=${targetId}`);
       const element = await response.json();
-      console.log(element);
       return element;
     },
-    { refreshInterval: 1000 },
+    { refreshInterval: 1000 }
   );
 
   useEffect(() => {
@@ -66,7 +89,7 @@ function DirectMessage(props: any) {
     }
     mutate(`/api/DirectSendMessage?id=${targetId}`);
   };
-
+  console.log(targetdata, "test");
   return (
     <>
       <div className="my-5">
@@ -91,7 +114,7 @@ function DirectMessage(props: any) {
                   item.userId == userId ? (
                     <li key={item.id} className="mt-6 flex items-center">
                       <div className="mr-4 h-14 w-14 overflow-hidden rounded-full border border-gray-300">
-                        <Image
+                        <img
                           alt="アイコン"
                           src={userdata.avatar_img}
                           width={50}
@@ -112,7 +135,7 @@ function DirectMessage(props: any) {
                         {item.content}
                       </div>
                       <div className="ml-4 h-14 w-14 overflow-hidden rounded-full border border-gray-300">
-                        <Image
+                        <img
                           alt="アイコン"
                           src={targetdata.avatar_img}
                           width={50}
@@ -121,7 +144,7 @@ function DirectMessage(props: any) {
                         />
                       </div>
                     </li>
-                  ),
+                  )
                 )}
             </ul>
           </div>
