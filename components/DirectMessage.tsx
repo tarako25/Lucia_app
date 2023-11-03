@@ -9,29 +9,29 @@ function DirectMessage(props: any) {
   const { mutate } = useSWRConfig();
   const [userdata, setUserdata] = useState<{
     id: string;
-    username: string;
-    production: string | null;
     avatar_img: string;
     delete_flg: number;
+    production: string | null;
+    username: string;
   }>({
     id: "",
-    username: "",
-    production: null,
     avatar_img: "",
     delete_flg: 0,
+    production: null,
+    username: "",
   });
   const [targetdata, setTargetdata] = useState<{
     id: string;
-    username: string;
-    production: string | null;
     avatar_img: string;
     delete_flg: number;
+    production: string | null;
+    username: string;
   }>({
     id: "",
-    username: "",
-    production: null,
     avatar_img: "",
     delete_flg: 0,
+    production: null,
+    username: "",
   });
   const searchParams = useSearchParams();
   const targetId = searchParams.get("Id");
@@ -56,7 +56,7 @@ function DirectMessage(props: any) {
       const element = await response.json();
       return element;
     },
-    { refreshInterval: 1000 }
+    { refreshInterval: 1000 },
   );
 
   useEffect(() => {
@@ -144,7 +144,7 @@ function DirectMessage(props: any) {
                         />
                       </div>
                     </li>
-                  )
+                  ),
                 )}
             </ul>
           </div>
