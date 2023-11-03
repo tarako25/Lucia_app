@@ -56,7 +56,7 @@ function DirectMessage(props: any) {
       const element = await response.json();
       return element;
     },
-    { refreshInterval: 1000 },
+    { refreshInterval: 1000 }
   );
 
   useEffect(() => {
@@ -114,7 +114,7 @@ function DirectMessage(props: any) {
                   item.userId == userId ? (
                     <li key={item.id} className="mt-6 flex items-center">
                       <div className="mr-4 h-14 w-14 overflow-hidden rounded-full border border-gray-300">
-                        <img
+                        <Image
                           alt="アイコン"
                           src={userdata.avatar_img}
                           width={50}
@@ -135,7 +135,7 @@ function DirectMessage(props: any) {
                         {item.content}
                       </div>
                       <div className="ml-4 h-14 w-14 overflow-hidden rounded-full border border-gray-300">
-                        <img
+                        <Image
                           alt="アイコン"
                           src={targetdata.avatar_img}
                           width={50}
@@ -144,7 +144,7 @@ function DirectMessage(props: any) {
                         />
                       </div>
                     </li>
-                  ),
+                  )
                 )}
             </ul>
           </div>
